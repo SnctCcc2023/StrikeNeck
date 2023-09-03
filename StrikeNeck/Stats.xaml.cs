@@ -7,7 +7,7 @@
             InitializeComponent();
         }
 
-        private async void OnClicked(object sender, EventArgs e)
+        private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Settings");
         }

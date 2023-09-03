@@ -4,12 +4,44 @@
              x:Class="strikeneck.Settings">
     <ScrollView>
         <VerticalStackLayout
-            VerticalOptions="Center">
+            VerticalOptions="StartAndExpand">
+            <Grid>
+                <!-- テキストを左上に配置 -->
+                <Label Text="通知" VerticalOptions="Start" FontSize="Medium" HorizontalOptions="Start" Margin="10,5,0,0" />
+
+                <!-- スイッチを右上に配置 -->
+                <Switch x:Name="toggleSwitch"
+                        Toggled="ToggleSwitch_Toggled"
+                        VerticalOptions="Start" HorizontalOptions="End" />
+
+                <!-- 横一直線を引く -->
+            </Grid>
+            <BoxView BackgroundColor="Black" HeightRequest="1" Grid.Row="1" Grid.ColumnSpan="2" />
+
+            <!-- ドロップダウンリスト (Picker) を右側に配置 -->
+            
+            <Label Text="通知インターバル" FontSize="Medium" VerticalOptions="Center" />
+            <Picker VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>1分</x:String>
+                            <x:String>5分</x:String>
+                            <x:String>15分</x:String>
+                            <x:String>30分</x:String>
+                            <x:String>60分</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+            </Picker>
+           
 
             <Button
-                Text="統計に戻る"
+                Text="キャンセル"
                 HorizontalOptions="Center"
                 Clicked="ToStats"/>
+            <Button
+                Text="保存して完了"
+                HorizontalOptions="Center"
+                Clicked="CompleteButton_Clicked"/>
 
             <Button
                 Text="初期設定を始める"
