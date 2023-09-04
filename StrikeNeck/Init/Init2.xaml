@@ -9,7 +9,7 @@
             VerticalOptions="Center">
 
         <Button
-            Text="初期設定3"
+            Text="撮影"
             HorizontalOptions="Center"
             Clicked="ToInit3" />
 

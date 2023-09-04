@@ -27,7 +27,7 @@
         Route="Init2" />
 
     <ShellContent
-        Title="初期設定3"
+        Title="プレビュー"
         ContentTemplate="{DataTemplate local:Init.Init3}"
         Route="Init3" />
 </Shell>
