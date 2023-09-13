@@ -1,4 +1,5 @@
-﻿namespace strikeneck
+﻿using System.Security.Cryptography.X509Certificates;
+namespace strikeneck
 {
     public partial class App : Application
     {
@@ -8,5 +9,6 @@
 
             MainPage = new AppShell();
         }
+
     }
 }

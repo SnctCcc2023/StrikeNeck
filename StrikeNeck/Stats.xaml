@@ -11,7 +11,13 @@
 
             <Button
                 Text="設定へ"
-                HorizontalOptions="Center" Clicked="OnClicked"/>
+                HorizontalOptions="Center" 
+                Clicked="OnClicked"/>
+
+            <Button
+                Text="テスト通知"
+                HorizontalOptions="Center"
+                Clicked="MakeToast" />
         </VerticalStackLayout>
     </ScrollView>
 
