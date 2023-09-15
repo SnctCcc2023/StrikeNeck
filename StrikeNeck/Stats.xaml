@@ -1,39 +1,18 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="strikeneck.Stats"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
-             xmlns:vm="clr-namespace:StrikeNeck.ViewModels" >
+             xmlns:vm="clr-namespace:StrikeNeck.ViewModels">
 
     <ContentPage.BindingContext>
-        <vm:StatsViewModel/>
+        <vm:StatsViewModel />
     </ContentPage.BindingContext>
 
-    <ScrollView>
 
-        <StackLayout>
-            <lvc:CartesianChart Series="{Binding Series}"/>
-            <VerticalStackLayout
-                Spacing="25"
-                Padding="10,10"
-                VerticalOptions="StartAndExpand">
+    <lvc:CartesianChart 
+        Series="{Binding Series}"
+        XAxes="{Binding XAxes}"/>
 
-
-                <ImageButton
-                    Source="icon_160100_256.png"
-
-                    Aspect="AspectFit"
-                       
-                        WidthRequest="50"
-                     
-                        HeightRequest="50"
-                        
-                         HorizontalOptions="Start"
-                        
-                        
-                        Clicked="ImageButton_Clicked" />
-            </VerticalStackLayout>
-        </StackLayout>
-
-    </ScrollView>
 
 </ContentPage>
