@@ -32,6 +32,7 @@ namespace StrikeNeck.ViewModels
                 MaxBarWidth = 30,
                 IgnoresBarPosition = true,
                
+
             },
             new LineSeries<double>
             {
