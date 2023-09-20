@@ -1,14 +1,18 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
+using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Drawing;
+
 using LiveChartsCore.SkiaSharpView.Painting;
+using LiveChartsCore.SkiaSharpView.Painting.Effects;
 using LiveChartsCore.SkiaSharpView.Painting.ImageFilters;
 using LiveChartsCore.SkiaSharpView.VisualElements;
 using SkiaSharp;
 
 namespace StrikeNeck.ViewModels
 {
-
+    
     public class StatsViewModel
     {
         public ISeries[] Series { get; set; } =
@@ -19,6 +23,7 @@ namespace StrikeNeck.ViewModels
                 Stroke = null,
                 MaxBarWidth = 60,
                 IgnoresBarPosition = true,
+             
             },
             new ColumnSeries<int>
             {
@@ -26,15 +31,19 @@ namespace StrikeNeck.ViewModels
                 Stroke = null,
                 MaxBarWidth = 30,
                 IgnoresBarPosition = true,
+               
             },
             new LineSeries<double>
             {
 
                 Values = new double[] { 2, 1, 3, 5, 3, 4, 6, 8 },
                 Fill = null,
+                
 
             }
 
         };
+
+
     }
 }
