@@ -1,19 +1,21 @@
 ﻿namespace hour;
-public class hour(bool result,float t, float bt)
+public class hour(float t, float bt, int diff)
 {
     using Microsoft.Data.SqlClient;
     var connectionString = @"Data Source=(localdb)\ProjectModels;Initial Catalog=minutes;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
     var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=hours;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
-    hoursUpdate();
+    hoursUpdate(diff);
 
     float per = bt/t;
     per = per*100;
 
-    void hoursUpdate()
+    void hoursUpdate(int diff)
     {
-        var updateQuery = "UPDATE Test SET tph = t WHERE Id = ";
-        var updateQuery = "UPDATE Test SET btph = bt WHERE Id = ";
-        var updateQuery = "UPDATE Test SET persent = per WHERE Id = ";
+        DateTime now = DateTime.now;
+        int h = now.Hour;
+        var updateQuery = "UPDATE Test SET tph = t WHERE Id = h+diff";
+        var updateQuery = "UPDATE Test SET btph = bt WHERE Id = h+diff";
+        var updateQuery = "UPDATE Test SET persent = per WHERE Id = h+diff";
 
         using (var connection = new SqlConnection(connectionString))
         using (var command = new SqlCommand(updateQuery, connection))
@@ -23,7 +25,7 @@ public class hour(bool result,float t, float bt)
         }
     }
 
-    for(var i=1;i<t+1;i++)
+    for(var i=1;i<t+2;i++)
     {
         hoursDelete(i);
     }
@@ -39,10 +41,4 @@ public class hour(bool result,float t, float bt)
             command.ExecuteNonQuery();
         }
     }
-
-    t=1;
-    bt=0;
-
-    minute(result, t);
-
 }
