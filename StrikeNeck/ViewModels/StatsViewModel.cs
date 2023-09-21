@@ -36,14 +36,12 @@ namespace StrikeNeck.ViewModels
             },
             new LineSeries<double>
             {
-
                 Values = new double[] { 2, 1, 3, 5, 3, 4, 6, 8 },
                 Fill = null,
-                
-
             }
 
         };
+        
 
 
     }
