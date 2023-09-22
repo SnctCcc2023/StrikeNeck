@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
+using System.IO;
 
 namespace strikeneck.Imaging
 {
@@ -15,7 +17,6 @@ namespace strikeneck.Imaging
         //前傾姿勢かどうかを判定する
         public bool examin(FileInfo imageFile)
         {
-            //本来は識別モデルで判定するが、現在は仮として常にtrueを返す
             return true;
         }
 
