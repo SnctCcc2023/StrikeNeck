@@ -11,4 +11,5 @@ namespace strikeneck;
 
             MainPage = new AppShell();
         }
+
     }
