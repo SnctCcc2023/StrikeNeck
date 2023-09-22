@@ -1,6 +1,4 @@
-
 using System;
-using Xamarin.Essentials;
 using System.Threading.Tasks;
 using System.Data;
 
@@ -36,12 +34,14 @@ namespace strikeneck.Init
             while (true)
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(10));
-                StartTime = StartTime.Add(TimeSpan.FromMilliseconds(-10));
+                StartTime = TimeOnly.FromDateTime(DateTime.Now);
 
                 if (StartTime.Second %10 == 0)
                 {
                     StartTime = TimeOnly.FromDateTime(DateTime.Now);
                     myImage.Source = cameraView.GetSnapShot(Camera.MAUI.ImageFormat.PNG);
+                    await Task.Delay(TimeSpan.FromMilliseconds(1000));
+                    StartTime = TimeOnly.FromDateTime(DateTime.Now);
                 }
             }
         }

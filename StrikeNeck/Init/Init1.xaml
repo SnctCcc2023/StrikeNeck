@@ -20,9 +20,7 @@
                 Clicked="TakePhoto" />
             <Image x:Name="myImage" WidthRequest="200" HeightRequest="200" />
             <Button
-                    Text="初期設定2"
-
-                    
+                    Text="次へ"
                     HorizontalOptions="Center"
                     Clicked="OnClicked" />
             </VerticalStackLayout>

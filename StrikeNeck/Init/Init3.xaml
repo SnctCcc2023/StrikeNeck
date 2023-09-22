@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              x:Class="strikeneck.Init.Init3">
         <ScrollView>
             <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+                Spacing="25"
+                Padding="30,0"
+                VerticalOptions="Center">
+
+                <cv:CameraView x:Name="cameraView"
+                               WidthRequest="300"
+                               HeightRequest="300"
+                               CamerasLoaded="cameraView_CamerasLoaded"/>
+                <Image x:Name="myImage" WidthRequest="200" HeightRequest="200" />
 
                 <Button
-                    Text="終了"
-                    HorizontalOptions="Center"
-                    Clicked="ToStats" />
-            <Button
-                    Text="やり直す"
-                    HorizontalOptions="Center"
-                    Clicked="ToInit1" />
-        </VerticalStackLayout>
+                        Text="終了"
+                        HorizontalOptions="Center"
+                        Clicked="ToStats" />
+                <Button
+                        Text="やり直す"
+                        HorizontalOptions="Center"
+                        Clicked="ToInit1" />
+                <Button
+                        Text="もどる"
+                        HorizontalOptions="Center"
+                        Clicked="ToInit2" />
+            </VerticalStackLayout>
         </ScrollView>
 </ContentPage>
