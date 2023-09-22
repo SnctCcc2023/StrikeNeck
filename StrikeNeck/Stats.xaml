@@ -5,23 +5,28 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              xmlns:vm="clr-namespace:StrikeNeck.ViewModels">
 
-    <ContentPage.BindingContext>
-        <vm:StatsViewModel />
-    </ContentPage.BindingContext>
+    <ScrollView>
+
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="10,10"
+            VerticalOptions="StartAndExpand">
 
 
-    <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+            <ImageButton
+            Source="icon_160100_256.png"
 
-            <lvc:CartesianChart Series="{Binding Series}">
+            Aspect="AspectFit"
+               
+                WidthRequest="50"
+             
+                HeightRequest="50"
                 
-            </lvc:CartesianChart>
-
-        </Grid>
-    </ContentPage.Content>
-
+                 HorizontalOptions="Start"
+                
+                
+                Clicked="ImageButton_Clicked" />
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>
