@@ -1,5 +1,7 @@
 ﻿namespace DB;
 
+using System;
+
 public static void minute(bool result, float tp);
 public static void hour(float t, float bt);
 public static void day(bool result);
