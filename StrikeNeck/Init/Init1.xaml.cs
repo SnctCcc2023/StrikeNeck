@@ -1,6 +1,12 @@
+
+using System;
+using Xamarin.Essentials;
+using System.Threading.Tasks;
 using System.Data;
 
+
 namespace strikeneck.Init
+
 {
     public partial class Init1 : ContentPage
     {
@@ -9,10 +15,12 @@ namespace strikeneck.Init
         {
             InitializeComponent();
         }
+
         private async void OnClicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Init2");
         }
+
         private void cameraView_CamerasLoaded(object sender, EventArgs e)
         {
             cameraView.Camera = cameraView.Cameras.First();
@@ -37,5 +45,7 @@ namespace strikeneck.Init
                 }
             }
         }
+
     }
+
 }

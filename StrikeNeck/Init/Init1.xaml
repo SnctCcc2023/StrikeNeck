@@ -7,6 +7,7 @@
             <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
+
             VerticalOptions="Fill"
             HorizontalOptions="Fill">
 
@@ -20,6 +21,8 @@
             <Image x:Name="myImage" WidthRequest="200" HeightRequest="200" />
             <Button
                     Text="初期設定2"
+
+                    
                     HorizontalOptions="Center"
                     Clicked="OnClicked" />
             </VerticalStackLayout>
