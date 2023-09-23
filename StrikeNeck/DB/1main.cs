@@ -3,7 +3,7 @@
 using System;
 
 public static void minute(bool result, float tp);
-public static void hour(float t, float bt);
+public static void hour(float t, float bt, int difference);
 public static void day(bool result);
 
 public class save_result(bool result)
@@ -25,7 +25,29 @@ public class save_result(bool result)
     {
         if(lt.Date == dt.Date)
         {
-            hour(tph, btph);
+            switch(today)
+            case 0:
+                difference=0;
+                break;
+            case 1:
+                difference=24;
+                break;
+            case 2:
+                difference=48;
+                break;
+            case 3:
+                difference=72;
+                break;
+            case 4:
+                difference=96;
+                break;
+            case 5:
+                difference=120;
+                break;
+            case 6:
+                difference=144;
+                break;
+            hour(tph, btph, difference);
             t = 1;
             bt = 0;
             minute(result, t);
