@@ -4,18 +4,15 @@ using System;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
 
-float sum_detection_count(DateTime lt, int difference);
-float sum_forward_lean_count(DateTime lt, int difference);
-void dayInsert(float day_detection_count, float forward_lean_count);
-void hoursReset();
 
-public class day(DateTime lt, int difference)
+public class Day(DateTime lt, int difference)
 {
-    float day_result = sum_hoursResult(lt);
-    dayInsert(day_result);
-    hoursReset();
+    private float day_result = Sum_hoursResult(lt);
 
-    float sum_detection_count(DateTime lt)
+    private Day(day_result);
+    private Day();
+
+    private float sum_detection_count(DateTime lt)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                 Initial Catalog=hours;
@@ -24,8 +21,8 @@ public class day(DateTime lt, int difference)
                                 Encrypt=False;
                                 Trust Server Certificate=False;
                                 Application Intent=ReadWrite;
-                                Multi Subnet Failover=False"
-                                // hoursのDBの接続文字列
+                                Multi Subnet Failover=False";
+        // hoursのDBの接続文字列
         float day_detection_count;
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
@@ -37,7 +34,7 @@ public class day(DateTime lt, int difference)
         return day_detection_count;
     }
 
-    float sum_forward_lean_count(DateTime lt, int difference)
+    private float Sum_forward_lean_count(DateTime lt, int difference)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                 Initial Catalog=hours;
@@ -46,20 +43,30 @@ public class day(DateTime lt, int difference)
                                 Encrypt=False;
                                 Trust Server Certificate=False;
                                 Application Intent=ReadWrite;
-                                Multi Subnet Failover=False"
-                                // hoursのDBの接続文字列
-        float day__forward_lean_count;
+                                Multi Subnet Failover=False";
+        // hoursのDBの接続文字列
+        float day_forward_lean_count;
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
         for (int i = difference; i < 24; i++)
         {
-            float day_detection_count_help = "SELECT forward_lean_count FROM Test WHERE id i";
-            day__forward_lean_count += day__forward_lean_count_help;
+            string sql = "SELECT forward_lean_count FROM Test WHERE id i";
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        float day_forward_lean_count_help = reader.GetFloat(0);
+                        day_forward_lean_count += day_forward_lean_count_help;
+                    }
+                }
+            }
         }
-        return day__forward_lean_count;
+        return day_forward_lean_count;
     }
 
-    void dayInsert(float day_detection_count, float forward_lean_count)
+    private void dayInsert(float day_detection_count, float forward_lean_count)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                             Initial Catalog=days;
@@ -68,8 +75,8 @@ public class day(DateTime lt, int difference)
                             Encrypt=False;
                             Trust Server Certificate=False;
                             Application Intent=ReadWrite;
-                            Multi Subnet Failover=False"
-                            // daysのDBの接続文字列
+                            Multi Subnet Failover=False";
+        // daysのDBの接続文字列
         static int times_update = 0;
         times_update++;
 
@@ -93,37 +100,39 @@ public class day(DateTime lt, int difference)
         }
 
 
-    DayOfWeek check = today.DayOfWeek;
+        DayOfWeek check = today.DayOfWeek;
 
-    if(check == DayOfWeek.Monday)
-    {
-        for(int i=0;i<168;i++)
+        if (check == DayOfWeek.Monday)
         {
-            hoursReset(i);
-        }
-    }
+            for (int i = 0; i < 168; i++)
+            {
+                hoursReset(i);
 
-    void hoursReset(int i)
-    {
+            }
 
-        var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
+            void hoursReset(int i)
+            {
+
+                var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                 Initial Catalog=hours;
                                 Integrated Security=True;
                                 Connect Timeout=30;
                                 Encrypt=False;
                                 Trust Server Certificate=False;
                                 Application Intent=ReadWrite;
-                                Multi Subnet Failover=False"
-                                // hoursのDBの接続文字列
+                                Multi Subnet Failover=False";
+                // hoursのDBの接続文字列
 
-        var updateQuery = "UPDATE Test SET tph = 0 WHERE Id = i";
-        var updateQuery = "UPDATE Test SET btph = 0 WHERE Id = i";
+                var updateQuery = "UPDATE Test SET tph = 0 WHERE Id = i" +
+                                  "UPDATE Test SET btph = 0 WHERE Id = i";
 
-        using (var connection = new SqlConnection(connectionString))
-        using (var command = new SqlCommand(deleteQuery, connection))
-        {
-            connection.Open();
-            command.ExecuteNonQuery();
+                using (var connection = new SqlConnection(connectionString))
+                using (var command = new SqlCommand(updateQuery, connection))
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

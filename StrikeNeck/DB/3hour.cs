@@ -3,23 +3,19 @@
 using System;
 using Microsoft.Data.SqlClient;
 
-void hoursUpdate(int difference);
-void minutesDelete(float t);
-
-public class hour(float t, float bt, int difference)
+public class Hour(float t, float bt, int difference)
 {
-    using Microsoft.Data.SqlClient;
-    var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=hours;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
-    hoursUpdate(difference);
-    minutesDelete(t);
+    private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=hours;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+    HoursUpdate(difference);
+    MinutesDelete(t);
    
 }
-void hoursUpdate(int difference)
+void HoursUpdate(int difference)
 {
-    DateTime now = DateTime.now;
+    DateTime now = DateTime.Now;
     int h = now.Hour;
-    var updateQuery = "UPDATE Test SET detection_count = t WHERE Id = h+difference";
-    var updateQuery = "UPDATE Test SET forward_lean_count = bt WHERE Id = h+difference";
+    var updateQuery = "UPDATE Test SET detection_count = t WHERE Id = h+difference" +
+                      "UPDATE Test SET forward_lean_count = bt WHERE Id = h+difference";
     
     using (var connection = new SqlConnection(connectionString))
     using (var command = new SqlCommand(updateQuery, connection))
@@ -29,16 +25,16 @@ void hoursUpdate(int difference)
     }
 }
 
-void minutesDelete(float t);
+void MinutesDelete(float t)
 {
     for (int i = 0; i < t; i++)
     {
-        var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=minutes;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
+        string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=minutes;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
-        var deleteQuery = "DELETE FROM Test WHERE Id = t";
+        string deleteQuery = "DELETE FROM Test WHERE Id = t";
 
-        using (var connection = new SqlConnection(connectionString))
-        using (var command = new SqlCommand(deleteQuery, connection))
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        using (SqlCommand command = new SqlCommand(deleteQuery, connection))
         {
             connection.Open();
             command.ExecuteNonQuery();

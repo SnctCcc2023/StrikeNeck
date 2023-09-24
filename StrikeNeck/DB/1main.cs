@@ -1,89 +1,91 @@
 ﻿namespace DB;
 
 using System;
+using System.Globalization;
 using Microsoft.Data.SqlClient;
 
-
-void minute(bool result, float tp);
-void hour(float t, float bt, int difference);
-void day(DateTime lt, int difference);
-
-public class save_result(bool result)
+static class Save_result(bool result)
 {
-    static float tph = 0;   //tphは1時間内における検知を何回行ったかを数える変数
-    static float btph = 0;  //btphは1時間内における検知の結果前傾姿勢だった回数を数える変数
-    static DateTime lt = nowDateTime.AddMinutes(-1); //ltは前回の検知を行った時間を記録しておく変数
-    DayOfWeek today = date.DayOfWeek;   //今日の曜日を確認
-    DateTime dt = DateTime.now; //今回の検知を行った時間を補完する変数
-    int difference = 0;
+    static Save_result(result)
+    {
+        static float tph = 0;   //tphは1時間内における検知を何回行ったかを数える変数
+        static float btph = 0;  //btphは1時間内における検知の結果前傾姿勢だった回数を数える変数
+        static DateTime lt = System.DateTime.Now.AddMinutes(-1); //ltは前回の検知を行った時間を記録しておく変数
+        DayOfWeek today = date.DayOfWeek;   //今日の曜日を確認
+        DateTime dt = DateTime.Now; //今回の検知を行った時間を補完する変数
+        int difference = 0;
 
-    tph++;
-   
-    if(lt.Hour == dt.Hour)
-    {
-        minute(result, tph);
-    }
-    else if (lt.Hour != dt.Hour)
-    {
-        if(lt.Date == dt.Date)
+        tph++;
+
+        if (lt.Hour == dt.Hour)
         {
-            switch(today)
-            case 0:
-                difference=0;
-                break;
-            case 1:
-                difference=24;
-                break;
-            case 2:
-                difference=48;
-                break;
-            case 3:
-                difference=72;
-                break;
-            case 4:
-                difference=96;
-                break;
-            case 5:
-                difference=120;
-                break;
-            case 6:
-                difference=144;
-                break;
-            hour(tph, btph, difference);
-            tph = 1;
-            bt = 0;
-            minute(result, t);
+            Minute(result, tph);
         }
-        else
+        else if (lt.Hour != dt.Hour)
         {
-        switch(today)
-            case 0:
-                difference = 0;
-                break;
-            case 1:
-                difference = 24;
-                break;
-            case 2:
-                difference = 48;
-                break;
-            case 3:
-                difference = 72;
-                break;
-            case 4:
-                difference = 96;
-                break;
-            case 5:
-                difference = 120;
-                break;
-            case 6:
-                difference = 144;
-                break;
-        day(lt, difference);
+            if (lt.Date == dt.Date)
+            {
+                switch (today)
+                {
+                    case DayOfWeek.Sunday:
+                        difference = 0;
+                        break;
+                    case DayOfWeek.Monday:
+                        difference = 24;
+                        break;
+                    case DayOfWeek.Tuesday:
+                        difference = 48;
+                        break;
+                    case DayOfWeek.Wednesday:
+                        difference = 72;
+                        break;
+                    case DayOfWeek.Thursday:
+                        difference = 96;
+                        break;
+                    case DayOfWeek.Friday:
+                        difference = 120;
+                        break;
+                    case DayOfWeek.Saturday:
+                        difference = 144;
+                        break;
+                }
+                Hour(tph, btph, difference);
+                tph = 1;
+                btph = 0;
+                Minute(result, tph);
+            }
+            else
+            {
+                switch (today)
+                case DayOfWeek.Sunday:
+                    difference = 0;
+                    break;
+                case DayOfWeek.Monday:
+                    difference = 24;
+                    break;
+                case DayOfWeek.Tuesday:
+                    difference = 48;
+                    break;
+                case DayOfWeek.Wednesday:
+                    difference = 72;
+                    break;
+                case DayOfWeek.Thursday:
+                    difference = 96;
+                    break;
+                case DayOfWeek.Friday:
+                    difference = 120;
+                    break;
+                case DayOfWeek.Saturday:
+                    difference = 144;
+                    break;
+                }
+                Day(lt, difference);
+            }
+            lt = DateTime.Now;
+            if (result)
+            {
+                btph++;
+            }
         }
-    }
-    lt = DateTime.now;
-    if (result)
-    {
-        btph++;
     }
 }
