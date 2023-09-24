@@ -2,15 +2,19 @@
 
 using System;
 using System.Globalization;
+using hour;
 using Microsoft.Data.SqlClient;
+using minute;
 
 internal class Save_result
 {
-    static void SaveResult(bool result)
+    float tph = 0;   //tphは1時間内における検知を何回行ったかを数える変数
+    float btph = 0;  //btphは1時間内における検知の結果前傾姿勢だった回数を数える変数
+    DateTime lt = System.DateTime.Now.AddMinutes(-1); //ltは前回の検知を行った時間を記録しておく変数
+    Minute minute = new Minute();
+
+    private void SaveResult(bool result)
     {
-        static float tph = 0;   //tphは1時間内における検知を何回行ったかを数える変数
-        static float btph = 0;  //btphは1時間内における検知の結果前傾姿勢だった回数を数える変数
-        static DateTime lt = System.DateTime.Now.AddMinutes(-1); //ltは前回の検知を行った時間を記録しておく変数
         DateTime dt = DateTime.Now; //今回の検知を行った時間を補完する変数
         DayOfWeek today = dt.DayOfWeek;   //今日の曜日を確認
         int difference = 0;
@@ -19,7 +23,7 @@ internal class Save_result
 
         if (lt.Hour == dt.Hour)
         {
-            Minute(result, tph);
+            minute.MinuteInsert(result, tph);
         }
         else if (lt.Hour != dt.Hour)
         {
@@ -49,10 +53,12 @@ internal class Save_result
                         difference = 144;
                         break;
                 }
-                Hour(tph, btph, difference);
+                Hour.HoursUpdate(tph, btph, difference);
+                Hour.MinutesDelete(tph);
+
                 tph = 1;
                 btph = 0;
-                Minute(result, tph);
+                minute.MinuteInsert(result, tph);
             }
             else
             {
@@ -80,7 +86,9 @@ internal class Save_result
                     difference = 144;
                     break;
                 }
-                Day(lt, difference);
+                float Sum_detection = day.Day.Sum_detection_count(lt, difference);
+                float day_forward_lean = day.Day.Sum_forward_lean_count(lt, difference);
+                day.Day.DayInsert(Sum_detection, day_forward_lean);
             }
             lt = DateTime.Now;
             if (result)

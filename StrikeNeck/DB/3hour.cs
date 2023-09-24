@@ -3,9 +3,9 @@
 using System;
 using Microsoft.Data.SqlClient;
 
-public class Hour
+internal class Hour
 {
-    static void HoursUpdate(float t, float bt, int difference)
+    public static void HoursUpdate(float t, float bt, int difference)
     {
     string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=hours;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
     DateTime now = DateTime.Now;
@@ -19,7 +19,7 @@ public class Hour
         command.ExecuteNonQuery();
     }
 
-    static void MinutesDelete(float t)
+    public static void MinutesDelete(float t)
     {
         for (int i = 0; i < t; i++)
         {

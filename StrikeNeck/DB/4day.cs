@@ -7,7 +7,9 @@ using Microsoft.Data.SqlClient;
 
 public class Day
 {
-    private static float Sum_detection_count(DateTime lt, int difference)
+    static int times_update = 0;
+
+    public static float Sum_detection_count(DateTime lt, int difference)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                 Initial Catalog=hours;
@@ -18,7 +20,7 @@ public class Day
                                 Application Intent=ReadWrite;
                                 Multi Subnet Failover=False";
         // hoursのDBの接続文字列
-        float day_detection_count;
+        float day_detection_count = 0;
         SqlConnection connection = new(connectionString);
         connection.Open();
         for (int i = difference; i < 24; i++)
@@ -35,7 +37,7 @@ public class Day
         return day_detection_count;
     }
 
-    private static float Sum_forward_lean_count(DateTime lt, int difference)
+    public static float Sum_forward_lean_count(DateTime lt, int difference)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                 Initial Catalog=hours;
@@ -46,7 +48,8 @@ public class Day
                                 Application Intent=ReadWrite;
                                 Multi Subnet Failover=False";
         // hoursのDBの接続文字列
-        float day_forward_lean_count;
+
+        float day_forward_lean_count = 0;
         SqlConnection connection = new(connectionString);
         connection.Open();
         for (int i = difference; i < 24; i++)
@@ -63,7 +66,7 @@ public class Day
         return day_forward_lean_count;
     }
 
-    private static void DayInsert(float day_detection_count, float forward_lean_count)
+    public static void DayInsert(float day_detection_count, float forward_lean_count)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                             Initial Catalog=days;
@@ -74,7 +77,6 @@ public class Day
                             Application Intent=ReadWrite;
                             Multi Subnet Failover=False";
         // daysのDBの接続文字列
-        static int times_update = 0;
         times_update++;
 
         var insertQuery = @"INSERT INTO Test(Id, date, detection_count, forward_lean_count) 
@@ -107,7 +109,7 @@ public class Day
 
             }
 
-            void hoursReset(int i)
+            static void hoursReset(int i)
             {
 
                 var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
