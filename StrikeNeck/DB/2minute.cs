@@ -3,10 +3,10 @@
 using System;
 using Microsoft.Data.SqlClient;
 
-public class Minute(bool result, float tp)
+internal class Minute(bool result, float tp)
 {
     private string connectionString = @"Data Source=(localdb)\ProjectModels;Initial Catalog=minutes;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-    private void MinuteInsert(result);
+    MinuteInsert(result);
 
 private void MinuteInsert(bool result)
     {

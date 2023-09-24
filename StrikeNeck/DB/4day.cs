@@ -12,7 +12,7 @@ public class Day(DateTime lt, int difference)
     private Day(day_result);
     private Day();
 
-    private float sum_detection_count(DateTime lt)
+    private float Sum_detection_count(DateTime lt)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                 Initial Catalog=hours;
@@ -66,7 +66,7 @@ public class Day(DateTime lt, int difference)
         return day_forward_lean_count;
     }
 
-    private void dayInsert(float day_detection_count, float forward_lean_count)
+    private void DayInsert(float day_detection_count, float forward_lean_count)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                             Initial Catalog=days;

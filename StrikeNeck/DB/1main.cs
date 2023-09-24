@@ -4,9 +4,9 @@ using System;
 using System.Globalization;
 using Microsoft.Data.SqlClient;
 
-static class Save_result(bool result)
+internal class Save_result
 {
-    static Save_result(result)
+    static void SaveResult(bool result)
     {
         static float tph = 0;   //tphは1時間内における検知を何回行ったかを数える変数
         static float btph = 0;  //btphは1時間内における検知の結果前傾姿勢だった回数を数える変数
@@ -57,6 +57,7 @@ static class Save_result(bool result)
             else
             {
                 switch (today)
+                {
                 case DayOfWeek.Sunday:
                     difference = 0;
                     break;
