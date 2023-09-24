@@ -1,6 +1,9 @@
 ﻿namespace minute;
 
 using System;
+using Microsoft.Data.SqlClient;
+
+void minuteInsert(bool result);
 
 public class minute(bool result, float tp)
 {
