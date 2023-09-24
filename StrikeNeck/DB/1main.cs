@@ -11,8 +11,8 @@ internal class Save_result
         static float tph = 0;   //tphは1時間内における検知を何回行ったかを数える変数
         static float btph = 0;  //btphは1時間内における検知の結果前傾姿勢だった回数を数える変数
         static DateTime lt = System.DateTime.Now.AddMinutes(-1); //ltは前回の検知を行った時間を記録しておく変数
-        DayOfWeek today = date.DayOfWeek;   //今日の曜日を確認
         DateTime dt = DateTime.Now; //今回の検知を行った時間を補完する変数
+        DayOfWeek today = dt.DayOfWeek;   //今日の曜日を確認
         int difference = 0;
 
         tph++;
