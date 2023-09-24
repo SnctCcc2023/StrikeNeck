@@ -1,5 +1,5 @@
 
-﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 
 
@@ -11,7 +11,7 @@ namespace strikeneck
         {
             InitializeComponent();
         }
-        
+       
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Settings");

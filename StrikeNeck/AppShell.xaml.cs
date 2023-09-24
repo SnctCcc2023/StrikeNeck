@@ -1,4 +1,5 @@
 ﻿namespace strikeneck
+
 {
     public partial class AppShell : Shell
     {
