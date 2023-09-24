@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="strikeneck.Stats"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
@@ -8,22 +7,22 @@
         <vm:StatsViewModel />
     </ContentPage.BindingContext>
 
-
-    <lvc:CartesianChart 
-        Series="{Binding Series}"
-        XAxes="{Binding XAxes}"/>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <lvc:CartesianChart Series="{Binding Series}">
+            <lvc:CartesianChart Grid.Row="1" Series="{Binding Series}"/>
 
-            </lvc:CartesianChart>
-
+            <ImageButton Grid.Row="0"
+                         Source="icon_160100_256.png"
+                         Aspect="AspectFit"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         HorizontalOptions="Start"
+                         Clicked="ImageButton_Clicked" />
         </Grid>
     </ContentPage.Content>
-
-
 </ContentPage>

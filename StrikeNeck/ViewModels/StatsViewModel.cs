@@ -1,17 +1,29 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 
-namespace MauiSample;
-
-public class ViewModel
+namespace StrikeNeck.ViewModels
 {
-    public ISeries[] Series { get; set; }
-        = new ISeries[]
+
+    public partial class StatsViewModel
+    {
+        public ISeries[] Series { get; set; } =
         {
-            new LineSeries<double>
-            {
-                Values = new double[] { 2, 1, 3, 5, 3, 4, 6 },
-                Fill = null
-            }
+        new ColumnSeries<int>
+        {
+            Values = new[] { 6, 3, 5, 7, 3, 4, 6, 3 },
+            Stroke = null,
+            MaxBarWidth = double.MaxValue,
+            IgnoresBarPosition = true
+        },
+        new ColumnSeries<int>
+        {
+            Values = new[] { 2, 4, 8, 9, 5, 2, 4, 7 },
+            Stroke = null,
+            MaxBarWidth = 30,
+            IgnoresBarPosition = true
+        }
         };
+    }
+    
 }
