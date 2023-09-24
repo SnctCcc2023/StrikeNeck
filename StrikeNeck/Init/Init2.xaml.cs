@@ -19,8 +19,11 @@ namespace strikeneck.Init
         }
         private async void TakePhoto(object sender, EventArgs e)
         {
+            await cameraView.StopCameraAsync();
+            var result = await cameraView.StartCameraAsync();
             while (true)
             {
+                
                 await Task.Delay(TimeSpan.FromMilliseconds(10));
                 StartTime = TimeOnly.FromDateTime(DateTime.Now);
 
