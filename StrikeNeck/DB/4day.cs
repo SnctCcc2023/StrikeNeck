@@ -23,7 +23,7 @@ public class Day
         float day_detection_count = 0;
         SqlConnection connection = new(connectionString);
         connection.Open();
-        for (int i = difference; i < 24; i++)
+        for (int i = difference; i < 24+difference; i++)
         {
             string sql = "SELECT forward_lean_count FROM Test WHERE id = @i";
             using SqlCommand command = new(sql, connection);
@@ -57,7 +57,7 @@ public class Day
         float day_forward_lean_count = 0;
         SqlConnection connection = new(connectionString);
         connection.Open();
-        for (int i = difference; i < 24; i++)
+        for (int i = difference; i < 24+difference; i++)
         {
             string sql = "SELECT forward_lean_count FROM Test WHERE id = @i";
             using SqlCommand command = new(sql, connection);
