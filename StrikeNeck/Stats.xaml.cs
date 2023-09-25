@@ -16,6 +16,13 @@ namespace strikeneck
         {
             await Shell.Current.GoToAsync("//Settings");
         }
+        private void DurationPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Picker で選択されたアイテムを取得
+            var selectedValue = DurationPicker.SelectedItem as string;
+
+
+        }
         private async void MakeToast(object sender, EventArgs e)
         {
 
@@ -40,6 +47,11 @@ namespace strikeneck
             var snackbar = Snackbar.Make(text, action, actionButtonText, duration, snackbarOptions);
 
             await snackbar.Show(cancellationTokenSource.Token);
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }
