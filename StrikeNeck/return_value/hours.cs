@@ -12,8 +12,8 @@ internal class Hour_Returnee
         int difference=0;
         DayOfWeek today = dt.DayOfWeek;
 
-        var hour_checker = new List<int>() { };
-        var Result_Hour = new List<float>() { };
+        var hour_checker = new List<int>() { };　//81,82行目に代入、説明あり
+        var Result_Hour = new List<float>() { }; //83,84行目に代入、説明あり
         int rep_time_checker=0;
 
         switch (today)
@@ -78,10 +78,10 @@ internal class Hour_Returnee
                 {
                     float float1 = reader.GetFloat(0);
                     float float2 = reader.GetFloat(1);
-                    Result_Hour[0] = float1;
-                    Result_Hour[1] = float2;
-                    hour_checker[0] = j;
-                    hour_checker[1] = i-difference;
+                    Result_Hour[0] = float1; //起動時間
+                    Result_Hour[1] = float2; //前傾姿勢だった時間
+                    hour_checker[0] = j;　//0が日曜、1が月曜…
+                    hour_checker[1] = i-difference; //これが12なら上の曜日の12時
                     HourResult.Add(hour_checker, Result_Hour);
                 }
             }

@@ -11,8 +11,8 @@ internal class Day_Returnee
         DateTime dt = DateTime.Now;
         DayOfWeek today = dt.DayOfWeek;
 
-        var day_checker = new List<int>() { };
-        var Result_day = new List<float>() { };
+        var day_checker = new List<int>() { }; //下の方に説明あるよ
+        var Result_day = new List<float>() { }; //下の方に説明あるよ
         var date = DateTime.Now;
 
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
@@ -68,20 +68,18 @@ internal class Day_Returnee
                     {
                         float float1 = reader.GetFloat(0);
                         float float2 = reader.GetFloat(1);
-                        Result_day[0] = float1;
-                        Result_day[1] = float2;
-                        day_checker[0] = j;
-                        day_checker[1] = i;
+                        Result_day[0] = float1; //0が最新の週間
+                        Result_day[1] = float2; //0が日曜、1が月曜…
+                        day_checker[0] = j; //アプリが何分起動していたか
+                        day_checker[1] = i; //前傾姿勢が何分だったか 
                         DayResult.Add(day_checker, Result_day);
                     }
                     else
                     {
-                        float float1 = 0;
-                        float float2 = 0;
-                        Result_day[0] = float1;
-                        Result_day[1] = float2;
-                        day_checker[0] = j;
-                        day_checker[1] = i;
+                        Result_day[0] = 0; //0が最新の週間
+                        Result_day[1] = 0; //0が日曜、1が月曜…
+                        day_checker[0] = j; //アプリが何分起動していたか
+                        day_checker[1] = i; //前傾姿勢が何分だったか 
                         DayResult.Add(day_checker, Result_day);
                     }
                 }
