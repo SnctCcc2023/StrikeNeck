@@ -6,7 +6,7 @@ using System.Collections.Generic;
 internal class Hour_Returnee
 {
     Dictionary<List<int>, List<float>> HourResult = new();
-    private void HourReturnee()
+    public void HourReturnee()
     {
         DateTime dt = DateTime.Now;
         int difference=0;

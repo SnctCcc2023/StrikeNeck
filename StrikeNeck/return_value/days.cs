@@ -6,7 +6,7 @@ using System.Collections.Generic;
 internal class Day_Returnee
 {
     Dictionary<List<int>, List<float>> DayResult = new();
-    private void DayReturnee()
+    public void DayReturnee()
     {
         DateTime dt = DateTime.Now;
         DayOfWeek today = dt.DayOfWeek;
