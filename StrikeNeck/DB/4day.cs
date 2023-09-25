@@ -12,21 +12,25 @@ public class Day
     public static float Sum_detection_count(DateTime lt, int difference)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
-                                Initial Catalog=hours;
-                                Integrated Security=True;
-                                Connect Timeout=30;
-                                Encrypt=False;
-                                Trust Server Certificate=False;
-                                Application Intent=ReadWrite;
-                                Multi Subnet Failover=False";
+                        Initial Catalog=hours;
+                        Integrated Security=True;
+                        Connect Timeout=30;
+                        Encrypt=False;
+                        Trust Server Certificate=False;
+                        Application Intent=ReadWrite;
+                        Multi Subnet Failover=False";
         // hoursのDBの接続文字列
         float day_detection_count = 0;
         SqlConnection connection = new(connectionString);
         connection.Open();
         for (int i = difference; i < 24; i++)
         {
-            string sql = "SELECT forward_lean_count FROM Test WHERE id i";
+            string sql = "SELECT forward_lean_count FROM Test WHERE id = @i";
             using SqlCommand command = new(sql, connection);
+
+            // パラメータの追加
+            command.Parameters.AddWithValue("@i", i);
+
             using SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -34,19 +38,20 @@ public class Day
                 day_detection_count += day_detection_count_help;
             }
         }
+
         return day_detection_count;
     }
 
     public static float Sum_forward_lean_count(DateTime lt, int difference)
     {
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
-                                Initial Catalog=hours;
-                                Integrated Security=True;
-                                Connect Timeout=30;
-                                Encrypt=False;
-                                Trust Server Certificate=False;
-                                Application Intent=ReadWrite;
-                                Multi Subnet Failover=False";
+                        Initial Catalog=hours;
+                        Integrated Security=True;
+                        Connect Timeout=30;
+                        Encrypt=False;
+                        Trust Server Certificate=False;
+                        Application Intent=ReadWrite;
+                        Multi Subnet Failover=False";
         // hoursのDBの接続文字列
 
         float day_forward_lean_count = 0;
@@ -54,8 +59,12 @@ public class Day
         connection.Open();
         for (int i = difference; i < 24; i++)
         {
-            string sql = "SELECT forward_lean_count FROM Test WHERE id i";
+            string sql = "SELECT forward_lean_count FROM Test WHERE id = @i";
             using SqlCommand command = new(sql, connection);
+
+            // パラメータの追加
+            command.Parameters.AddWithValue("@i", i);
+
             using SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -64,6 +73,7 @@ public class Day
             }
         }
         return day_forward_lean_count;
+
     }
 
     public static void DayInsert(float day_detection_count, float forward_lean_count)
@@ -111,22 +121,21 @@ public class Day
 
             static void hoursReset(int i)
             {
-
                 var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
-                                Initial Catalog=hours;
-                                Integrated Security=True;
-                                Connect Timeout=30;
-                                Encrypt=False;
-                                Trust Server Certificate=False;
-                                Application Intent=ReadWrite;
-                                Multi Subnet Failover=False";
-                // hoursのDBの接続文字列
+                    Initial Catalog=hours;
+                    Integrated Security=True;
+                    Connect Timeout=30;
+                    Encrypt=False;
+                    Trust Server Certificate=False;
+                    Application Intent=ReadWrite;
+                    Multi Subnet Failover=False";
 
-                var updateQuery = "UPDATE Test SET tph = 0 WHERE Id = i" +
-                                  "UPDATE Test SET btph = 0 WHERE Id = i";
+                var updateQuery = "UPDATE Test SET tph = 0 WHERE Id = @id; " +
+                                  "UPDATE Test SET btph = 0 WHERE Id = @id;";
 
                 using SqlConnection connection = new(connectionString);
-                using var command = new SqlCommand(updateQuery, connection);
+                using SqlCommand command = new(updateQuery, connection);
+                command.Parameters.AddWithValue("@id", i);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
