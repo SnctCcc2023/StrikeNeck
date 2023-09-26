@@ -83,13 +83,14 @@ public class Months_Returnee
 
         SqlConnection connection = new(connectionString);
         connection.Open();
-        
+
+        float help3 = 0;
+        float help4 = 0;
+
         for (int i = 0; i < 6; i++)
         {
             string sql = "SELECT day_detection_count,forward_lean_count FROM Table2 WHERE day = @date";
             using SqlCommand command = new(sql, connection);
-            float help3 = 0;
-            float help4 = 0;
 
             for (int j = 0; j < 7; j++)
             {
@@ -101,8 +102,15 @@ public class Months_Returnee
                     command.Parameters.AddWithValue("@date", date);
                     using SqlDataReader reader = command.ExecuteReader();
 
-                    help3 += reader.GetFloat(0);
-                    help4 += reader.GetFloat(1);
+                    if (reader.Read())
+                    {
+                        help3 += reader.GetFloat(0);
+                        help4 += reader.GetFloat(1);
+                    }
+                    else
+                    {
+                        help3 += 0; 
+                    }
                 }
                 else
                 {
@@ -112,8 +120,15 @@ public class Months_Returnee
                     command.Parameters.AddWithValue("@date", date);
                     using SqlDataReader reader = command.ExecuteReader();
 
-                    help3 += reader.GetFloat(0);
-                    help4 += reader.GetFloat(1);
+                    if (reader.Read())
+                    {
+                        help3 += reader.GetFloat(0);
+                        help4 += reader.GetFloat(1);
+                    }
+                    else
+                    {
+                        help3 += 0;
+                    }
                 }
             }
             month_checker[0] = dt.Month; //0が最新の週間
