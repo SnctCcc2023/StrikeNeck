@@ -129,6 +129,7 @@ public class Day
                     Trust Server Certificate=False;
                     Application Intent=ReadWrite;
                     Multi Subnet Failover=False";
+                    //hoursのDB
 
                 var updateQuery = "UPDATE Test SET tph = 0 WHERE Id = @id; " +
                                   "UPDATE Test SET btph = 0 WHERE Id = @id;";

@@ -18,11 +18,12 @@ internal class Day_Returnee
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
                                  Initial Catalog=days;
                                  Integrated Security=True;
-                                 Connect Timeout=30;Encrypt=False;
+                                 Connect Timeout=30;
+                                 Encrypt=False;
                                  Trust Server Certificate=False;
                                  Application Intent=ReadWrite;
                                  Multi Subnet Failover=False";
-        // hoursのDBの接続文字列
+                                 // daysのDBの接続文字列
 
         switch (today)
         {
@@ -51,42 +52,54 @@ internal class Day_Returnee
 
         SqlConnection connection = new(connectionString);
         connection.Open();
-        for (int j = 0; j < 9; j++)
+        
+        for (int i = 0; i < 7; i++)
         {
-            for (int i = 0; i < 7; i++)
+            string sql = "SELECT day_detection_count,forward_lean_count FROM Table2 WHERE day = @date";
+            using SqlCommand command = new(sql, connection);
+
+            // パラメータの追加
+            command.Parameters.AddWithValue("@date", date);
+
+            using SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                string sql = "SELECT day_detection_count,forward_lean_count FROM Test WHERE day = @date";
-                using SqlCommand command = new(sql, connection);
-
-                // パラメータの追加
-                command.Parameters.AddWithValue("@date", date);
-
-                using SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                if (reader.Read())
                 {
-                    if (reader.Read())
+                    float float1 = reader.GetFloat(0);
+                    float float2 = reader.GetFloat(1);
+                    Result_day[0] = float1/60; //アプリが何時間起動していたか
+                    Result_day[1] = float2/60; //前傾姿勢が何時間だったか 
+                    day_checker[0] = dt.Hour; //今日が何月か
+                    day_checker[1] = i; //0が月初めの週、1がその次の週…
+                    if (DayResult.ContainsKey(day_checker))
                     {
-                        float float1 = reader.GetFloat(0);
-                        float float2 = reader.GetFloat(1);
-                        Result_day[0] = float1; //0が最新の週間
-                        Result_day[1] = float2; //0が日曜、1が月曜…
-                        day_checker[0] = j; //アプリが何分起動していたか
-                        day_checker[1] = i; //前傾姿勢が何分だったか 
-                        DayResult.Add(day_checker, Result_day);
+                        DayResult[day_checker] = Result_day;
                     }
                     else
                     {
-                        Result_day[0] = 0; //0が最新の週間
-                        Result_day[1] = 0; //0が日曜、1が月曜…
-                        day_checker[0] = j; //アプリが何分起動していたか
-                        day_checker[1] = i; //前傾姿勢が何分だったか 
+                        DayResult.Add(day_checker, Result_day);
+                    } 
+                }
+                else
+                {
+                    Result_day[0] = 0; //アプリが何時間起動していたか
+                    Result_day[1] = 0; //前傾姿勢が何時間だったか 
+                    day_checker[0] = dt.Hour; //今日が何月か
+                    day_checker[1] = i; //0が月初めの週、1がその次の週…
+                    if (DayResult.ContainsKey(day_checker))
+                    {
+                        DayResult[day_checker] = Result_day;
+                    }
+                    else
+                    {
                         DayResult.Add(day_checker, Result_day);
                     }
                 }
-                date = date.AddDays(1);
             }
-            date = date.AddDays(-14);
+            date = date.AddDays(1);
         }
+        date = date.AddDays(-14);
     }
 }
     

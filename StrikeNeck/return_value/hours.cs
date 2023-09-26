@@ -82,7 +82,14 @@ internal class Hour_Returnee
                     Result_Hour[1] = float2; //前傾姿勢だった時間
                     hour_checker[0] = j;　//0が日曜、1が月曜…
                     hour_checker[1] = i-difference; //これが12なら上の曜日の12時
-                    HourResult.Add(hour_checker, Result_Hour);
+                    if (HourResult.ContainsKey(hour_checker))
+                    {
+                        HourResult[hour_checker] = Result_Hour;
+                    }
+                    else
+                    {
+                        HourResult.Add(hour_checker, Result_Hour);
+                    }
                 }
             }
             rep_time_checker--;
