@@ -48,7 +48,7 @@
                 </Picker>
                 
             </StackLayout>
-            <Label Grid.Row="1" Text="(時間)" FontSize="Medium" Margin="10,0,10,10" VerticalOptions="Start" />
+            <Label x:Name="unit"  Grid.Row="1" Text="(分)" FontSize="Medium" Margin="10,0,10,10" VerticalOptions="Start" />
             <!-- コンテンツ部分 -->
             <lvc:CartesianChart Grid.Row="1" 
                                 Margin="10,40,10,10"

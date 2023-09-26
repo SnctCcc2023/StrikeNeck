@@ -1,28 +1,47 @@
 
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using System.Xml.Linq;
 
 
 namespace strikeneck
 {
     public partial class Stats : ContentPage
     {
+        private void DurationPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Picker で選択されたアイテムを取得
+            var timeSelectedValue = DurationPicker.SelectedItem as string;
+            Label myLabel = this.FindByName<Label>("unit");
+            if (timeSelectedValue == "日間")
+            {
+                myLabel.Text = "(分)";
+            }
+            else if (timeSelectedValue == "週間" || timeSelectedValue == "月間")
+            {
+                myLabel.Text = "(時間)";
+            }
+            else
+            {
+                myLabel.Text = "(時間)";
+            }
+           
+
+        }
         public Stats()
         {
             InitializeComponent();
+            Binding binding = new Binding();
+            
         }
        
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Settings");
         }
-        private void DurationPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Picker で選択されたアイテムを取得
-            var selectedValue = DurationPicker.SelectedItem as string;
+        
 
 
-        }
         private async void MakeToast(object sender, EventArgs e)
         {
 
@@ -48,6 +67,7 @@ namespace strikeneck
 
             await snackbar.Show(cancellationTokenSource.Token);
         }
+
 
         private void Button_Clicked(object sender, EventArgs e)
         {

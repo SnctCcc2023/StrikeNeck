@@ -6,7 +6,7 @@ namespace StrikeNeck.ViewModels
 {
 
     public partial class StatsViewModel
-    {
+    {   
         public ISeries[] Series { get; set; } =
         {
             new ColumnSeries<int>
