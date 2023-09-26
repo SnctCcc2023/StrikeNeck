@@ -1,6 +1,7 @@
 ﻿namespace Month_Return;
 
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 
@@ -23,7 +24,8 @@ public class Months_Returnee
         var day_coordinationner = 0;
 
         DateTime dt = DateTime.Now;
-        DayOfWeek today = dt.DayOfWeek;
+        DateTime firstDayOfMonth = new(dt.Year, dt.Month, 1);
+        DayOfWeek today = firstDayOfMonth.DayOfWeek;
 
         var month_checker = new List<int>() { }; //下の方に説明あるよ
         var Result_month = new List<float>() { }; //下の方に説明あるよ
@@ -37,12 +39,11 @@ public class Months_Returnee
             {
                 for (int j = 0; j <= 5; j++)
                 {
-                    List<int> key = new List<int> { i, j };
-                    List<float> value = new List<float> { 0, 0 };
+                    List<int> key = new() { i, j };
+                    List<float> value = new() { 0, 0 };
                     MonthResult[key] = value;
                 }
             }
-
         }
 
         var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
@@ -87,17 +88,39 @@ public class Months_Returnee
         {
             string sql = "SELECT day_detection_count,forward_lean_count FROM Table2 WHERE day = @date";
             using SqlCommand command = new(sql, connection);
+            float help3 = 0;
+            float help4 = 0;
 
-            // パラメータの追加
-            command.Parameters.AddWithValue("@date", date);
-
-            using SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            for (int j = 0; j < 7; j++)
             {
-                month_checker[0] = dt.Month; //0が最新の週間
-                month_checker[1] = i; //0が月初め、1がその次の週…
-                MonthResult.Add(month_checker, Result_month);
+                if (j == 0)
+                {
+                    j = day_coordinationner;
+                    date = firstDayOfMonth;
+                    // パラメータの追加
+                    command.Parameters.AddWithValue("@date", date);
+                    using SqlDataReader reader = command.ExecuteReader();
+
+                    help3 += reader.GetFloat(0);
+                    help4 += reader.GetFloat(1);
+                }
+                else
+                {
+
+                    date = date.AddDays(1);
+
+                    command.Parameters.AddWithValue("@date", date);
+                    using SqlDataReader reader = command.ExecuteReader();
+
+                    help3 += reader.GetFloat(0);
+                    help4 += reader.GetFloat(1);
+                }
             }
+            month_checker[0] = dt.Month; //0が最新の週間
+            month_checker[1] = i; //0が月初め、1がその次の週…
+            Result_month[0] = help3;
+            Result_month[1] = help4;
+            MonthResult.Add(month_checker, Result_month);
         }
         times = 1;
     }
