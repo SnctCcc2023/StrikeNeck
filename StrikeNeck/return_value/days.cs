@@ -1,11 +1,13 @@
-﻿using Microsoft.Data.SqlClient;
+﻿namespace Day_Return;
+
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 
 
-internal class Day_Returnee
+public class Day_Returnee
 { 
-    Dictionary<List<int>, List<float>> DayResult = new(); //これがDBの情報を持っている
+    public Dictionary<List<int>, List<float>> DayResult = new(); //これがDBの情報を持っている
     public void DayReturnee() //この関数の呼び出しによってメンバ変数を更新
     {
         

@@ -1,11 +1,13 @@
-﻿using Microsoft.Data.SqlClient;
+﻿namespace Month_Return;
+
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 
 
-internal class Months_Returnee 
+public class Months_Returnee 
 {
-    Dictionary<List<int>, List<float>> MonthResult = new(); //これがDBの情報を持っている
+    public Dictionary<List<int>, List<float>> MonthResult = new(); //これがDBの情報を持っている
     private static bool isFirstCall = true;
     private int times = 1;
     public void MonthsReturnee() //この関数の呼び出しによってメンバ変数を更新

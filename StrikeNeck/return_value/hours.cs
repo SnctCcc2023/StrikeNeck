@@ -1,11 +1,13 @@
-﻿using Microsoft.Data.SqlClient;
+﻿namespace Hour_Return;
+
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 
 
-internal class Hour_Returnee
+public class Hour_Returnee
 {
-    Dictionary<List<int>, List<float>> HourResult = new(); //これがDBの情報を持っている
+    public Dictionary<List<int>, List<float>> HourResult = new(); //これがDBの情報を持っている
     public void HourReturnee() //この関数の呼び出しによってメンバ変数を更新
     {
         DateTime dt = DateTime.Now;
