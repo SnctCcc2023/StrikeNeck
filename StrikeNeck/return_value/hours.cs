@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 internal class Hour_Returnee
 {
-    Dictionary<List<int>, List<float>> HourResult = new();
-    public void HourReturnee()
+    Dictionary<List<int>, List<float>> HourResult = new(); //これがDBの情報を持っている
+    public void HourReturnee() //この関数の呼び出しによってメンバ変数を更新
     {
         DateTime dt = DateTime.Now;
         int difference=0;
@@ -15,6 +15,11 @@ internal class Hour_Returnee
         var hour_checker = new List<int>() { };　//81,82行目に代入、説明あり
         var Result_Hour = new List<float>() { }; //83,84行目に代入、説明あり
         int rep_time_checker=0;
+
+        if(today== DayOfWeek.Sunday)
+        {
+            HourResult.Clear();
+        }
 
         switch (today)
         {
