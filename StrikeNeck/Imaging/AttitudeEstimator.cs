@@ -6,7 +6,7 @@ namespace StrikeNeck.Imaging
     using SixLabors.ImageSharp;
     using SixLabors.ImageSharp.Processing;
 
-    enum KeyPointName
+    internal enum KeyPointName
     {
         Nose,
         LeftEye,
@@ -27,7 +27,7 @@ namespace StrikeNeck.Imaging
         RightAnkle
     }
 
-    struct KeyPoint
+    internal struct KeyPoint
     {
         public float X { get; }
         public float Y { get; }
@@ -38,15 +38,16 @@ namespace StrikeNeck.Imaging
             Y = y;
         }
     }
-    class AttitudeEsimator
+    internal class AttitudeEsimator
     {
         static internal Dictionary<KeyPointName, KeyPoint> estimate(FileInfo fileInfo)
         {
 
 
-            //画像の読み込み
-            string modelFilePath = "../../../posenet.onnx";
+            //PoseNetの読み込み
+            string modelFilePath = "../../../../../../Imaging/mlModel/posenet.onnx";
 
+            //画像の読み込み
             using var image = Image.Load<Rgb24>(fileInfo.FullName);
 
 
