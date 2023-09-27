@@ -1,4 +1,5 @@
 ﻿using Microsoft.ML;
+using strikeneck.AppSetting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,9 @@ namespace strikeneck.Imaging
             var trueScore = output.Score[0];
             var falseScore = output.Score[1];
 
-            var isForwardLean = trueScore > falseScore;
+            var bias = SettingAccessor.Load().detectionSensitivity.sensitivity;
+
+            var isForwardLean = ( (trueScore + bias ) > falseScore );
 
             return isForwardLean;
         }
