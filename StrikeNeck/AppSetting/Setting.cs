@@ -2,9 +2,9 @@
 {
     public class Setting
     {
-        readonly bool isNotificationEnabled;
-        readonly NotificationInterval notificationInterval;
-        readonly DetectionSensitivity detectionSensitivity;
+        public readonly bool isNotificationEnabled;
+        public readonly NotificationInterval notificationInterval;
+        public readonly DetectionSensitivity detectionSensitivity;
 
         public Setting(NotificationInterval notificationInterval, DetectionSensitivity detectionSensitivity, bool isNotificationEnabled)
         {

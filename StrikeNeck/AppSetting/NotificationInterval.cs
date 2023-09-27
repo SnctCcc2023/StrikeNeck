@@ -8,7 +8,7 @@ namespace strikeneck.AppSetting
 {
     public class NotificationInterval
     {
-        private readonly NotificationIntervalList notificationInterval;
+        public readonly NotificationIntervalList notificationInterval;
 
         public NotificationInterval(NotificationIntervalList notificationInterval = NotificationIntervalList.fifteenMinutes)
         {
