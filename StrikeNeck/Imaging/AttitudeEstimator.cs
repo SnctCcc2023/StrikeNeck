@@ -1,5 +1,5 @@
 ﻿
-namespace StrikeNeck.Imaging
+namespace strikeneck.Imaging
 {
     using Microsoft.ML.OnnxRuntime;
     using Microsoft.ML.OnnxRuntime.Tensors;

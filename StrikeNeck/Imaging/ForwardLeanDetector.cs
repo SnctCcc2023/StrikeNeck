@@ -3,9 +3,9 @@ using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using System.IO;
 using System.Text;
-using static StrikeNeck.Imaging.FLD1;
+using static strikeneck.Imaging.FLD1;
 
-namespace StrikeNeck.Imaging
+namespace strikeneck.Imaging
 {
     //前傾姿勢判定器を表すクラス
     public class ForwardLeanDetector
