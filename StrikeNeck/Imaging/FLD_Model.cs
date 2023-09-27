@@ -2,7 +2,7 @@
 using Microsoft.ML.Trainers.FastTree;
 using Microsoft.ML;
 
-namespace StrikeNeck.Imaging
+namespace strikeneck.Imaging
 {
     public partial class FLD1
     {

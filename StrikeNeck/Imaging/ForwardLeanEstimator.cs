@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static StrikeNeck.Imaging.FLD1;
+using static strikeneck.Imaging.FLD1;
 
-namespace StrikeNeck.Imaging
+namespace strikeneck.Imaging
 {
     internal class ForwardLeanEstimator
     {
