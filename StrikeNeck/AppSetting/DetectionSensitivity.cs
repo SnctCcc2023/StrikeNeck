@@ -8,8 +8,8 @@ namespace strikeneck.AppSetting
 {
     public class DetectionSensitivity
     {
-        private const int MAX_SENSITIVITY = 256;
-        private const int MIN_SENSITIVITY = -256;
+        private const int MAX_SENSITIVITY = 100;
+        private const int MIN_SENSITIVITY = -100;
         public readonly int sensitivity;
 
         public DetectionSensitivity(int sensitivity = 0)
