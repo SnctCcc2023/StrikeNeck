@@ -1,4 +1,4 @@
-﻿namespace StrikeNeck.AppSetting
+﻿namespace strikeneck.AppSetting
 {
     public class Setting
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StrikeNeck.AppSetting
+namespace strikeneck.AppSetting
 {
     public class DetectionSensitivity
     {
