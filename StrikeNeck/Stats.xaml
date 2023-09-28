@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="strikeneck.Stats"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              >
 
     <ScrollView>
@@ -27,6 +28,12 @@
                 
                 Clicked="ImageButton_Clicked" />
 
+            <cv:CameraView x:Name="cameraView"
+                           WidthRequest="300"
+                           HeightRequest="300"
+                           CamerasLoaded="cameraView_CamerasLoaded"
+                           IsVisible="false" />
+            <Image x:Name="myImage" WidthRequest="200" HeightRequest="200" />
         </VerticalStackLayout>
     </ScrollView>
 
