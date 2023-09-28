@@ -95,5 +95,6 @@ public class Hour_Returnee
             rep_time_checker--;
             difference += 24;
         }
+        connection.Close();
     }
 }

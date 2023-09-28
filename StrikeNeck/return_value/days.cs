@@ -98,6 +98,7 @@ namespace Day_Return
                     }
                     date = date.AddDays(-14);
                 }
+                connection.Close();
             }
         }
     }
