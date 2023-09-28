@@ -1,12 +1,36 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using LiveCharts.Wpf;
 using StrikeNeck.ViewModels;
-using Day_Return;
-using Hour_Return;
 using System;
-using Month_Return;
+
 namespace strikeneck
+
 {
+    enum DayOfWeek
+    {
+        SUN, MON, TUE, WED, THU, FRI, SAT
+    }
+
+    public class WeekCountUtility
+    {
+        public static int GetWeekCount(DateTime targetDate)
+        {
+            // 指定した年と月の最初の日を取得
+            DateTime firstDayOfMonth = new DateTime(targetDate.Year, targetDate.Month, 1);
+
+            // 指定した年と月の最後の日を取得
+            DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            // 最初の日から最後の日までの日数を計算
+            int totalDays = (int)(lastDayOfMonth - firstDayOfMonth).TotalDays + 1;
+
+            // 週数を計算
+            int weekCount = (int)Math.Ceiling((double)totalDays / 7);
+
+            return weekCount;
+        }
+    }
     public class MonthUtility
     {
         public static int GetCurrentMonth()
@@ -59,79 +83,76 @@ namespace strikeneck
             StatsViewModel = new StatsViewModel();
         }
 
-
+        DateTime date = DateTime.Now;
         private void DurationPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             var picker = (Picker)sender;
             var selectedIndex = picker.SelectedIndex;
             Label myLabel = this.FindByName<Label>("unit");
-
+            DataAccessor val = new DataAccessor();
+            date = DateTime.Now;
             switch (selectedIndex)
-            {
+            {   
                 case 0:
-                    Hour_Returnee val = new Hour_Returnee();
-                    val.HourReturnee();
-                    int currentDayOfWeek = DayOfWeekUtility.GetCurrentDayOfWeek();
-                    
-                    List<int>[] keys = new List<int>[24];
-                    List<float>[] values = new List<float>[24];
-                    for(int i=0;i < 24; i++)
+                    var analyticsPerDay = DataAccessor.GetAnalyticsPerDay(date);
+                    float[] activateTimes = new float[24];
+                    float[] forwardLeanTimes = new float[24];
+                    for (int i = 0; i < 24; i++)
                     {
-                        keys[i]=new List<int>() { currentDayOfWeek,i};
-                        values[i] = val.HourResult[keys[i]];
+                        activateTimes[i]= analyticsPerDay.GetAnalyticsPerHour(i).ActiveTime;
+                        forwardLeanTimes[i]=analyticsPerDay.GetAnalyticsPerHour(i).ForwardLeanTime;
                     }
-                    
-                    StatsViewModel.SetStartUpTime(new float[] { 
-                        values[0][1], 
-                        values[1][1], 
-                        values[2][1], 
-                        values[3][1], 
-                        values[4][1],
-                        values[5][1],
-                        values[6][1],
-                        values[7][1],
-                        values[8][1],
-                        values[9][1],
-                        values[10][1],
-                        values[11][1],
-                        values[12][1],
-                        values[13][1],
-                        values[14][1],
-                        values[15][1],
-                        values[16][1],
-                        values[17][1],
-                        values[18][1],
-                        values[19][1],
-                        values[20][1],
-                        values[21][1],
-                        values[22][1],
-                        values[23][1],
+                    StatsViewModel.SetStartUpTime(new float[] {
+                        activateTimes[0],
+                        activateTimes[1],
+                        activateTimes[2],
+                        activateTimes[3],
+                        activateTimes[4],
+                        activateTimes[5],
+                        activateTimes[6],
+                        activateTimes[7],
+                        activateTimes[8],
+                        activateTimes[9],
+                        activateTimes[10],
+                        activateTimes[11],
+                        activateTimes[12],
+                        activateTimes[13],
+                        activateTimes[14],
+                        activateTimes[15],
+                        activateTimes[16],
+                        activateTimes[17],
+                        activateTimes[18],
+                        activateTimes[19],
+                        activateTimes[20],
+                        activateTimes[21],
+                        activateTimes[22],
+                        activateTimes[23],
                         });
                     StatsViewModel.SetPoorPostureTime(new float[] {
-                        values[0][0],
-                        values[1][0],
-                        values[2][0],
-                        values[3][0],
-                        values[4][0],
-                        values[5][0],
-                        values[6][0],
-                        values[7][0],
-                        values[8][0],
-                        values[9][0],
-                        values[10][0],
-                        values[11][0],
-                        values[12][0],
-                        values[13][0],
-                        values[14][0],
-                        values[15][0],
-                        values[16][0],
-                        values[17][0],
-                        values[18][0],
-                        values[19][0],
-                        values[20][0],
-                        values[21][0],
-                        values[22][0],
-                        values[23][0],
+                        forwardLeanTimes[0],
+                        forwardLeanTimes[1],
+                        forwardLeanTimes[2],
+                        forwardLeanTimes[3],
+                        forwardLeanTimes[4],
+                        forwardLeanTimes[5],
+                        forwardLeanTimes[6],
+                        forwardLeanTimes[7],
+                        forwardLeanTimes[8],
+                        forwardLeanTimes[9],
+                        forwardLeanTimes[10],
+                        forwardLeanTimes[11],
+                        forwardLeanTimes[12],
+                        forwardLeanTimes[13],
+                        forwardLeanTimes[14],
+                        forwardLeanTimes[15],
+                        forwardLeanTimes[16],
+                        forwardLeanTimes[17],
+                        forwardLeanTimes[18],
+                        forwardLeanTimes[19],
+                        forwardLeanTimes[20],
+                        forwardLeanTimes[21],
+                        forwardLeanTimes[22],
+                        forwardLeanTimes[23],
                     });
                     StatsViewModel.SetAxisLabels(new string[] {
                         "0時",
@@ -162,38 +183,40 @@ namespace strikeneck
                     myLabel.Text = "(分)";
                     break;
                 case 1:
-                    Day_Returnee dayval = new Day_Returnee();
-                    dayval.DayReturnee();
-                    
+                    var analyticsPerWeek = DataAccessor.GetAnalyticsPerWeek(date);
+                    float ActivateSun = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SUN).ActiveTime; 
+                    float ActivateMon = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.MON).ActiveTime;
+                    float ActivateTue = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.TUE).ActiveTime;
+                    float ActivateWed = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.WED).ActiveTime;
+                    float ActivateThu = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.THU).ActiveTime;
+                    float ActivateFri = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.FRI).ActiveTime;
+                    float ActivateSat = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SAT).ActiveTime;
 
-                    List<int>[] daykeys = new List<int>[7];
-                    List<float>[] dayvalues = new List<float>[7];
-                    for (int i = 0; i < 7; i++)
-                    {
-                        daykeys[i] = new List<int>() { 0, i };
-                        dayvalues[i] = dayval.DayResult[daykeys[i]];
-                    }
+                    float fowardLeanSun = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SUN).ForwardLeanTime;
+                    float fowardLeanMon = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.MON).ForwardLeanTime;
+                    float fowardLeanTue = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.TUE).ForwardLeanTime;
+                    float fowardLeanWed = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.WED).ForwardLeanTime;
+                    float fowardLeanThu = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.THU).ForwardLeanTime;
+                    float fowardLeanFri = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.FRI).ForwardLeanTime;
+                    float fowardLeanSat = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SAT).ForwardLeanTime;
 
                     StatsViewModel.SetStartUpTime(new float[] {
-                        dayvalues[0][1],
-                        dayvalues[1][1],
-                        dayvalues[2][1],
-                        dayvalues[3][1],
-                        dayvalues[4][1],
-                        dayvalues[5][1],
-                        dayvalues[6][1],
-                       
-                       
+                        ActivateSun,
+                        ActivateMon,
+                        ActivateTue,
+                        ActivateWed,
+                        ActivateThu,
+                        ActivateFri,
+                        ActivateSat,
                         });
                     StatsViewModel.SetPoorPostureTime(new float[] {
-                        dayvalues[0][0],
-                        dayvalues[1][0],
-                        dayvalues[2][0],
-                        dayvalues[3][0],
-                        dayvalues[4][0],
-                        dayvalues[5][0],
-                        dayvalues[6][0],
-
+                        fowardLeanSun,
+                        fowardLeanMon,
+                        fowardLeanTue,
+                        fowardLeanWed,
+                        fowardLeanThu,
+                        fowardLeanFri,
+                        fowardLeanSat,
                     });
                     StatsViewModel.SetAxisLabels(new string[] {
                         "SUN",
@@ -208,41 +231,21 @@ namespace strikeneck
                     myLabel.Text = "(時間)";
                     break;
                 case 2:
-                    Months_Returnee monthsval = new Months_Returnee();
-                    monthsval.MonthsReturnee();
-                    int currentMonth = MonthUtility.GetCurrentMonth();
-
-                    List<int>[] monthskeys = new List<int>[12];
-                    List<float>[] monthsvalues = new List<float>[12];
-                    for (int i = 0; i < 4; i++)
+                    var analyticsPerMonth = DataAccessor.GetAnalyticsPerMonth(date);
+                    int weekCount = WeekCountUtility.GetWeekCount(date);
+                    float[] monthActivateTimes = new float[weekCount];
+                    float[] monthForwardLeanTimes = new float[weekCount];
+                    string[] monthAxis = new string[weekCount];
+                    for (int i = 0; i < weekCount; i++)
                     {
-                        monthskeys[i] = new List<int>() { currentMonth, i };
-                        monthsvalues[i] = monthsval.MonthResult[monthskeys[i]];
+                        monthActivateTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ActiveTime;
+                        monthForwardLeanTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ForwardLeanTime;
+                        monthAxis[i] = $"第{i}週";
                     }
 
-                    StatsViewModel.SetStartUpTime(new float[] {
-                        monthsvalues[0][1],
-                        monthsvalues[1][1],
-                        monthsvalues[2][1],
-                        monthsvalues[3][1],
-                        
-
-                        });
-                    StatsViewModel.SetPoorPostureTime(new float[] {
-                        monthsvalues[0][0],
-                        monthsvalues[1][0],
-                        monthsvalues[2][0],
-                        monthsvalues[3][0],
-
-
-                    });
-                    StatsViewModel.SetAxisLabels(new string[] {
-                        "第1週",
-                        "第2週",
-                        "第3週",
-                        "第4週",
-
-                    });
+                    StatsViewModel.SetStartUpTime(monthActivateTimes);
+                    StatsViewModel.SetPoorPostureTime(monthForwardLeanTimes);
+                    StatsViewModel.SetAxisLabels(monthAxis);
                     myLabel.Text = "(時間)";
                     break;
             }
@@ -261,16 +264,172 @@ namespace strikeneck
         {
             var picker = (Picker)sender;
             var selectedIndex = picker.SelectedIndex;
+            Label myLabel = this.FindByName<Label>("unit");
+            DataAccessor val = new DataAccessor();
+            
             switch (selectedIndex)
             {
                 case 0:
+                    date = date.AddDays(-1);
+                    var analyticsPerDay = DataAccessor.GetAnalyticsPerDay(date);
+                    float[] activateTimes = new float[24];
+                    float[] forwardLeanTimes = new float[24];
+                    for (int i = 0; i < 24; i++)
+                    {
+                        activateTimes[i] = analyticsPerDay.GetAnalyticsPerHour(i).ActiveTime;
+                        forwardLeanTimes[i] = analyticsPerDay.GetAnalyticsPerHour(i).ForwardLeanTime;
+                    }
+                    StatsViewModel.SetStartUpTime(new float[] {
+                        activateTimes[0],
+                        activateTimes[1],
+                        activateTimes[2],
+                        activateTimes[3],
+                        activateTimes[4],
+                        activateTimes[5],
+                        activateTimes[6],
+                        activateTimes[7],
+                        activateTimes[8],
+                        activateTimes[9],
+                        activateTimes[10],
+                        activateTimes[11],
+                        activateTimes[12],
+                        activateTimes[13],
+                        activateTimes[14],
+                        activateTimes[15],
+                        activateTimes[16],
+                        activateTimes[17],
+                        activateTimes[18],
+                        activateTimes[19],
+                        activateTimes[20],
+                        activateTimes[21],
+                        activateTimes[22],
+                        activateTimes[23],
+                        });
+                    StatsViewModel.SetPoorPostureTime(new float[] {
+                        forwardLeanTimes[0],
+                        forwardLeanTimes[1],
+                        forwardLeanTimes[2],
+                        forwardLeanTimes[3],
+                        forwardLeanTimes[4],
+                        forwardLeanTimes[5],
+                        forwardLeanTimes[6],
+                        forwardLeanTimes[7],
+                        forwardLeanTimes[8],
+                        forwardLeanTimes[9],
+                        forwardLeanTimes[10],
+                        forwardLeanTimes[11],
+                        forwardLeanTimes[12],
+                        forwardLeanTimes[13],
+                        forwardLeanTimes[14],
+                        forwardLeanTimes[15],
+                        forwardLeanTimes[16],
+                        forwardLeanTimes[17],
+                        forwardLeanTimes[18],
+                        forwardLeanTimes[19],
+                        forwardLeanTimes[20],
+                        forwardLeanTimes[21],
+                        forwardLeanTimes[22],
+                        forwardLeanTimes[23],
+                    });
+                    StatsViewModel.SetAxisLabels(new string[] {
+                        "0時",
+                        "1時",
+                        "2時",
+                        "3時",
+                        "4時",
+                        "5時",
+                        "6時",
+                        "7時",
+                        "8時",
+                        "9時",
+                        "10時",
+                        "11時",
+                        "12時",
+                        "13時",
+                        "14時",
+                        "15時",
+                        "16時",
+                        "17時",
+                        "18時",
+                        "19",
+                        "20時",
+                        "21時",
+                        "22時",
+                        "23時",
+                    });
+                    myLabel.Text = "(分)";
                     break;
                 case 1:
+                    date = date.AddDays(-7);
+                    var analyticsPerWeek = DataAccessor.GetAnalyticsPerWeek(date);
+                    float ActivateSun = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SUN).ActiveTime;
+                    float ActivateMon = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.MON).ActiveTime;
+                    float ActivateTue = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.TUE).ActiveTime;
+                    float ActivateWed = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.WED).ActiveTime;
+                    float ActivateThu = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.THU).ActiveTime;
+                    float ActivateFri = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.FRI).ActiveTime;
+                    float ActivateSat = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SAT).ActiveTime;
+
+                    float fowardLeanSun = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SUN).ForwardLeanTime;
+                    float fowardLeanMon = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.MON).ForwardLeanTime;
+                    float fowardLeanTue = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.TUE).ForwardLeanTime;
+                    float fowardLeanWed = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.WED).ForwardLeanTime;
+                    float fowardLeanThu = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.THU).ForwardLeanTime;
+                    float fowardLeanFri = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.FRI).ForwardLeanTime;
+                    float fowardLeanSat = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SAT).ForwardLeanTime;
+
+                    StatsViewModel.SetStartUpTime(new float[] {
+                        ActivateSun,
+                        ActivateMon,
+                        ActivateTue,
+                        ActivateWed,
+                        ActivateThu,
+                        ActivateFri,
+                        ActivateSat,
+                        });
+                    StatsViewModel.SetPoorPostureTime(new float[] {
+                        fowardLeanSun,
+                        fowardLeanMon,
+                        fowardLeanTue,
+                        fowardLeanWed,
+                        fowardLeanThu,
+                        fowardLeanFri,
+                        fowardLeanSat,
+                    });
+                    StatsViewModel.SetAxisLabels(new string[] {
+                        "SUN",
+                        "MON",
+                        "TUE",
+                        "WED",
+                        "THU",
+                        "FRI",
+                        "SAT",
+
+                    });
+                    myLabel.Text = "(時間)";
                     break;
                 case 2:
+                    date = date.AddMonths(-1);
+                    var analyticsPerMonth = DataAccessor.GetAnalyticsPerMonth(date);
+                    int weekCount = WeekCountUtility.GetWeekCount(date);
+                    float[] monthActivateTimes = new float[weekCount];
+                    float[] monthForwardLeanTimes = new float[weekCount];
+                    string[] monthAxis = new string[weekCount];
+                    for (int i = 0; i < weekCount; i++)
+                    {
+                        monthActivateTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ActiveTime;
+                        monthForwardLeanTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ForwardLeanTime;
+                        monthAxis[i] = $"第{i}週";
+                    }
+
+                    StatsViewModel.SetStartUpTime(monthActivateTimes);
+                    StatsViewModel.SetPoorPostureTime(monthForwardLeanTimes);
+                    StatsViewModel.SetAxisLabels(monthAxis);
+                    myLabel.Text = "(時間)";
                     break;
             }
-                    StatsViewModel.Series = StatsViewModel.Series;
+
+            StatsViewModel.Series = StatsViewModel.Series;
             StatsViewModel.XAxes = StatsViewModel.XAxes;
             StatsViewModel.UpdateGraph();
         }
@@ -279,15 +438,171 @@ namespace strikeneck
         {
             var picker = (Picker)sender;
             var selectedIndex = picker.SelectedIndex;
+            Label myLabel = this.FindByName<Label>("unit");
+            DataAccessor val = new DataAccessor();
+
             switch (selectedIndex)
             {
                 case 0:
+                    date = date.AddDays(1);
+                    var analyticsPerDay = DataAccessor.GetAnalyticsPerDay(date);
+                    float[] activateTimes = new float[24];
+                    float[] forwardLeanTimes = new float[24];
+                    for (int i = 0; i < 24; i++)
+                    {
+                        activateTimes[i] = analyticsPerDay.GetAnalyticsPerHour(i).ActiveTime;
+                        forwardLeanTimes[i] = analyticsPerDay.GetAnalyticsPerHour(i).ForwardLeanTime;
+                    }
+                    StatsViewModel.SetStartUpTime(new float[] {
+                        activateTimes[0],
+                        activateTimes[1],
+                        activateTimes[2],
+                        activateTimes[3],
+                        activateTimes[4],
+                        activateTimes[5],
+                        activateTimes[6],
+                        activateTimes[7],
+                        activateTimes[8],
+                        activateTimes[9],
+                        activateTimes[10],
+                        activateTimes[11],
+                        activateTimes[12],
+                        activateTimes[13],
+                        activateTimes[14],
+                        activateTimes[15],
+                        activateTimes[16],
+                        activateTimes[17],
+                        activateTimes[18],
+                        activateTimes[19],
+                        activateTimes[20],
+                        activateTimes[21],
+                        activateTimes[22],
+                        activateTimes[23],
+                        });
+                    StatsViewModel.SetPoorPostureTime(new float[] {
+                        forwardLeanTimes[0],
+                        forwardLeanTimes[1],
+                        forwardLeanTimes[2],
+                        forwardLeanTimes[3],
+                        forwardLeanTimes[4],
+                        forwardLeanTimes[5],
+                        forwardLeanTimes[6],
+                        forwardLeanTimes[7],
+                        forwardLeanTimes[8],
+                        forwardLeanTimes[9],
+                        forwardLeanTimes[10],
+                        forwardLeanTimes[11],
+                        forwardLeanTimes[12],
+                        forwardLeanTimes[13],
+                        forwardLeanTimes[14],
+                        forwardLeanTimes[15],
+                        forwardLeanTimes[16],
+                        forwardLeanTimes[17],
+                        forwardLeanTimes[18],
+                        forwardLeanTimes[19],
+                        forwardLeanTimes[20],
+                        forwardLeanTimes[21],
+                        forwardLeanTimes[22],
+                        forwardLeanTimes[23],
+                    });
+                    StatsViewModel.SetAxisLabels(new string[] {
+                        "0時",
+                        "1時",
+                        "2時",
+                        "3時",
+                        "4時",
+                        "5時",
+                        "6時",
+                        "7時",
+                        "8時",
+                        "9時",
+                        "10時",
+                        "11時",
+                        "12時",
+                        "13時",
+                        "14時",
+                        "15時",
+                        "16時",
+                        "17時",
+                        "18時",
+                        "19",
+                        "20時",
+                        "21時",
+                        "22時",
+                        "23時",
+                    });
+                    myLabel.Text = "(分)";
                     break;
                 case 1:
+                    date = date.AddDays(7);
+                    var analyticsPerWeek = DataAccessor.GetAnalyticsPerWeek(date);
+                    float ActivateSun = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SUN).ActiveTime;
+                    float ActivateMon = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.MON).ActiveTime;
+                    float ActivateTue = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.TUE).ActiveTime;
+                    float ActivateWed = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.WED).ActiveTime;
+                    float ActivateThu = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.THU).ActiveTime;
+                    float ActivateFri = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.FRI).ActiveTime;
+                    float ActivateSat = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SAT).ActiveTime;
+
+                    float fowardLeanSun = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SUN).ForwardLeanTime;
+                    float fowardLeanMon = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.MON).ForwardLeanTime;
+                    float fowardLeanTue = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.TUE).ForwardLeanTime;
+                    float fowardLeanWed = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.WED).ForwardLeanTime;
+                    float fowardLeanThu = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.THU).ForwardLeanTime;
+                    float fowardLeanFri = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.FRI).ForwardLeanTime;
+                    float fowardLeanSat = analyticsPerWeek.GetAnalyticsPerDay(DayOfWeek.SAT).ForwardLeanTime;
+
+                    StatsViewModel.SetStartUpTime(new float[] {
+                        ActivateSun,
+                        ActivateMon,
+                        ActivateTue,
+                        ActivateWed,
+                        ActivateThu,
+                        ActivateFri,
+                        ActivateSat,
+                        });
+                    StatsViewModel.SetPoorPostureTime(new float[] {
+                        fowardLeanSun,
+                        fowardLeanMon,
+                        fowardLeanTue,
+                        fowardLeanWed,
+                        fowardLeanThu,
+                        fowardLeanFri,
+                        fowardLeanSat,
+                    });
+                    StatsViewModel.SetAxisLabels(new string[] {
+                        "SUN",
+                        "MON",
+                        "TUE",
+                        "WED",
+                        "THU",
+                        "FRI",
+                        "SAT",
+
+                    });
+                    myLabel.Text = "(時間)";
                     break;
                 case 2:
+                    date = date.AddMonths(1);
+                    var analyticsPerMonth = DataAccessor.GetAnalyticsPerMonth(date);
+                    int weekCount = WeekCountUtility.GetWeekCount(date);
+                    float[] monthActivateTimes = new float[weekCount];
+                    float[] monthForwardLeanTimes = new float[weekCount];
+                    string[] monthAxis = new string[weekCount];
+                    for (int i = 0; i < weekCount; i++)
+                    {
+                        monthActivateTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ActiveTime;
+                        monthForwardLeanTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ForwardLeanTime;
+                        monthAxis[i] = $"第{i}週";
+                    }
+
+                    StatsViewModel.SetStartUpTime(monthActivateTimes);
+                    StatsViewModel.SetPoorPostureTime(monthForwardLeanTimes);
+                    StatsViewModel.SetAxisLabels(monthAxis);
+                    myLabel.Text = "(時間)";
                     break;
             }
+
             StatsViewModel.Series = StatsViewModel.Series;
             StatsViewModel.XAxes = StatsViewModel.XAxes;
             StatsViewModel.UpdateGraph();
