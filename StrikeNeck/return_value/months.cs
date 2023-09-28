@@ -1,12 +1,12 @@
 ﻿namespace Month_Return;
 
-using Microsoft.Data.SqlClient;
+using System.Data.SQLite;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 
 
-public class Months_Returnee 
+public class Months_Returnee
 {
     public Dictionary<List<int>, List<float>> MonthResult = new(); //これがDBの情報を持っている
     private static bool isFirstCall = true;
@@ -40,48 +40,41 @@ public class Months_Returnee
                 for (int j = 0; j <= 5; j++)
                 {
                     List<int> key = new() { i, j };
-                    List<float> value = new() { 0, 0 };
+                    List<float> value = new() { 0, 0, 0, 0 }; // 初期値を4つに変更
                     MonthResult[key] = value;
                 }
             }
         }
 
-        var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
-                                 Initial Catalog=days;
-                                 Integrated Security=True;
-                                 Connect Timeout=30;
-                                 Encrypt=False;
-                                 Trust Server Certificate=False;
-                                 Application Intent=ReadWrite;
-                                 Multi Subnet Failover=False";
-                                 // daysのDBの接続文字列
+        var connectionString = @"Data Source=days.db;Version=3;";
+        // daysのDBの接続文字列
 
         switch (today)
         {
             case DayOfWeek.Sunday:
-                day_coordinationner=0;
+                day_coordinationner = 0;
                 break;
             case DayOfWeek.Monday:
-                day_coordinationner=1;
+                day_coordinationner = 1;
                 break;
             case DayOfWeek.Tuesday:
-                day_coordinationner=2;
+                day_coordinationner = 2;
                 break;
             case DayOfWeek.Wednesday:
-                day_coordinationner=3;
+                day_coordinationner = 3;
                 break;
             case DayOfWeek.Thursday:
-                day_coordinationner=4;
+                day_coordinationner = 4;
                 break;
             case DayOfWeek.Friday:
-                day_coordinationner=5;
+                day_coordinationner = 5;
                 break;
             case DayOfWeek.Saturday:
-                day_coordinationner=6;
+                day_coordinationner = 6;
                 break;
         }
 
-        SqlConnection connection = new(connectionString);
+        SQLiteConnection connection = new(connectionString);
         connection.Open();
 
         float help3 = 0;
@@ -90,7 +83,7 @@ public class Months_Returnee
         for (int i = 0; i < 6; i++)
         {
             string sql = "SELECT day_detection_count,forward_lean_count FROM Table2 WHERE day = @date";
-            using SqlCommand command = new(sql, connection);
+            using SQLiteCommand command = new(sql, connection);
 
             for (int j = 0; j < 7; j++)
             {
@@ -100,7 +93,7 @@ public class Months_Returnee
                     date = firstDayOfMonth;
                     // パラメータの追加
                     command.Parameters.AddWithValue("@date", date);
-                    using SqlDataReader reader = command.ExecuteReader();
+                    using SQLiteDataReader reader = command.ExecuteReader();
 
                     if (reader.Read())
                     {
@@ -109,7 +102,7 @@ public class Months_Returnee
                     }
                     else
                     {
-                        help3 += 0; 
+                        help3 += 0;
                     }
                 }
                 else
@@ -118,7 +111,7 @@ public class Months_Returnee
                     date = date.AddDays(1);
 
                     command.Parameters.AddWithValue("@date", date);
-                    using SqlDataReader reader = command.ExecuteReader();
+                    using SQLiteDataReader reader = command.ExecuteReader();
 
                     if (reader.Read())
                     {
@@ -131,14 +124,26 @@ public class Months_Returnee
                     }
                 }
             }
+
             month_checker[0] = dt.Month; //0が最新の週間
             month_checker[1] = i; //0が月初め、1がその次の週…
             Result_month[0] = help3;
             Result_month[1] = help4;
-            MonthResult.Add(month_checker, Result_month);
+
+            DateTime sunday = firstDayOfMonth.AddDays(i * 7 - (int)firstDayOfMonth.DayOfWeek);
+            DateTime saturday = sunday.AddDays(6);
+            Result_month[2] = sunday.Day;
+            Result_month[3] = saturday.Day;
+
+            if (this.MonthResult.ContainsKey(month_checker))
+            {
+                this.MonthResult[month_checker] = Result_month;
+            }
+            else
+            {
+                this.MonthResult.Add(month_checker, Result_month);
+            }
         }
         times = 1;
     }
 }
-    
-

@@ -257,7 +257,41 @@ namespace strikeneck
             await Shell.Current.GoToAsync("//Settings");
         }
 
+        private void BackButton_Clicked(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            var selectedIndex = picker.SelectedIndex;
+            switch (selectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+                    StatsViewModel.Series = StatsViewModel.Series;
+            StatsViewModel.XAxes = StatsViewModel.XAxes;
+            StatsViewModel.UpdateGraph();
+        }
 
+        private void NextButton_Clicked(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            var selectedIndex = picker.SelectedIndex;
+            switch (selectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+            StatsViewModel.Series = StatsViewModel.Series;
+            StatsViewModel.XAxes = StatsViewModel.XAxes;
+            StatsViewModel.UpdateGraph();
+        }
 
         private async void MakeToast(object sender, EventArgs e)
         {
