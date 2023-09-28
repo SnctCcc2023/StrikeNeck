@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 
-namespace hour
+namespace hour2
 {
     internal class Hour
     {

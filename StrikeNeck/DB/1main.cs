@@ -2,10 +2,10 @@
 
 using System;
 using System.Globalization;
-using hour;
+using hour2;
 using Microsoft.Data.SqlClient;
-using minute;
-using day;
+using minute2;
+using day2;
 
 public class Save_result
 {

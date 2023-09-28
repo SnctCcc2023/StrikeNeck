@@ -2,7 +2,7 @@
 using System.Data.SQLite;
 using System.IO;
 
-namespace minute
+namespace minute2
 {
     public class Minute
     {

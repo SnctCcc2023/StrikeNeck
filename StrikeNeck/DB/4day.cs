@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 
-namespace day
+namespace day2
 {
     public class Day
     {
@@ -75,20 +75,17 @@ namespace day
                                 VALUES (@id, @date, @detection_count, @forward_lean_count)";
             DateTime today = DateTime.Today;
 
-            using (var connection = new SQLiteConnection(connectionString))
-            using (var command = new SQLiteCommand(insertQuery, connection))
-            {
-                connection.Open();
+            using var connection = new SQLiteConnection(connectionString);
+            using var command = new SQLiteCommand(insertQuery, connection);
+            connection.Open();
 
-                // パラメーターの追加
-                command.Parameters.AddWithValue("@id", times_update);
-                command.Parameters.AddWithValue("@date", today);
-                command.Parameters.AddWithValue("@detection_count", day_detection_count);
-                command.Parameters.AddWithValue("@forward_lean_count", forward_lean_count);
+            // パラメーターの追加
+            command.Parameters.AddWithValue("@id", times_update);
+            command.Parameters.AddWithValue("@date", today);
+            command.Parameters.AddWithValue("@detection_count", day_detection_count);
+            command.Parameters.AddWithValue("@forward_lean_count", forward_lean_count);
 
-                command.ExecuteNonQuery();
-
-            }
+            command.ExecuteNonQuery();
         }
     }
 }
