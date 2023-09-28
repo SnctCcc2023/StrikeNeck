@@ -5,6 +5,7 @@ using System.Globalization;
 using hour;
 using Microsoft.Data.SqlClient;
 using minute;
+using day;
 
 public class Save_result
 {
@@ -23,6 +24,8 @@ public class Save_result
 
         if (lt.Hour == dt.Hour)
         {
+            var minute = new Minute();
+            minute.InitializeDatabase();
             minute.MinuteInsert(result, tph);
         }
         else if (lt.Hour != dt.Hour)
@@ -53,6 +56,8 @@ public class Save_result
                         difference = 144;
                         break;
                 }
+                var hour = new Hour();
+                hour.InitializeDatabase();
                 Hour.HoursUpdate(tph, btph, difference);
                 Hour.MinutesDelete(tph);
 
@@ -86,9 +91,12 @@ public class Save_result
                     difference = 144;
                     break;
                 }
-                float Sum_detection = day.Day.Sum_detection_count(lt, difference);
-                float day_forward_lean = day.Day.Sum_forward_lean_count(lt, difference);
-                day.Day.DayInsert(Sum_detection, day_forward_lean);
+                var day = new Day();
+                day.InitializeDatabase();
+                float Sum_detection = Day.Sum_detection_count(lt, difference);
+                float day_forward_lean = Day.Sum_forward_lean_count(lt, difference);
+
+                Day.DayInsert(Sum_detection, day_forward_lean);
             }
             lt = DateTime.Now;
             if (result)

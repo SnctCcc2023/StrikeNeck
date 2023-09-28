@@ -55,14 +55,7 @@ public class Hour_Returnee
                 break;
         }
 
-        var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
-                        Initial Catalog=hours;
-                        Integrated Security=True;
-                        Connect Timeout=30;
-                        Encrypt=False;
-                        Trust Server Certificate=False;
-                        Application Intent=ReadWrite;
-                        Multi Subnet Failover=False";
+        var connectionString = @"Data Source=hours.db;Version=3;";
         // hoursのDBの接続文字列
         SqlConnection connection = new(connectionString);
         connection.Open();

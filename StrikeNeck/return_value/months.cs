@@ -46,15 +46,8 @@ public class Months_Returnee
             }
         }
 
-        var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;
-                                 Initial Catalog=days;
-                                 Integrated Security=True;
-                                 Connect Timeout=30;
-                                 Encrypt=False;
-                                 Trust Server Certificate=False;
-                                 Application Intent=ReadWrite;
-                                 Multi Subnet Failover=False";
-                                 // daysのDBの接続文字列
+        var connectionString = @"Data Source=days.db;Version=3;";
+        // daysのDBの接続文字列
 
         switch (today)
         {
