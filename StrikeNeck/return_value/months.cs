@@ -40,7 +40,7 @@ public class Months_Returnee
                 for (int j = 0; j <= 5; j++)
                 {
                     List<int> key = new() { i, j };
-                    List<float> value = new() { 0, 0 };
+                    List<float> value = new() { 0, 0, 0, 0 }; // 初期値を4つに変更
                     MonthResult[key] = value;
                 }
             }
@@ -135,7 +135,20 @@ public class Months_Returnee
             month_checker[1] = i; //0が月初め、1がその次の週…
             Result_month[0] = help3;
             Result_month[1] = help4;
-            MonthResult.Add(month_checker, Result_month);
+
+            DateTime sunday = firstDayOfMonth.AddDays(i * 7 - (int)firstDayOfMonth.DayOfWeek);
+            DateTime saturday = sunday.AddDays(6);
+            Result_month[2] = sunday.Day;
+            Result_month[3] = saturday.Day;
+
+            if (this.MonthResult.ContainsKey(month_checker))
+            {
+                this.MonthResult[month_checker] = Result_month;
+            }
+            else
+            {
+                this.MonthResult.Add(month_checker, Result_month);
+            }
         }
         times = 1;
     }
