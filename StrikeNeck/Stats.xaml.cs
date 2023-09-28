@@ -7,7 +7,14 @@ using System;
 using Month_Return;
 namespace strikeneck
 {
-    
+    public class MonthUtility
+    {
+        public static int GetCurrentMonth()
+        {
+            // 現在の日時を取得し、その月の番号を返す
+            return DateTime.Now.Month;
+        }
+    }
 
     public class DayOfWeekUtility
     {
@@ -157,13 +164,13 @@ namespace strikeneck
                 case 1:
                     Day_Returnee dayval = new Day_Returnee();
                     dayval.DayReturnee();
-                    int daycurrentDayOfWeek = DayOfWeekUtility.GetCurrentDayOfWeek();
+                    
 
-                    List<int>[] daykeys = new List<int>[24];
-                    List<float>[] dayvalues = new List<float>[24];
-                    for (int i = 0; i < 24; i++)
+                    List<int>[] daykeys = new List<int>[7];
+                    List<float>[] dayvalues = new List<float>[7];
+                    for (int i = 0; i < 7; i++)
                     {
-                        daykeys[i] = new List<int>() { daycurrentDayOfWeek, i };
+                        daykeys[i] = new List<int>() { 0, i };
                         dayvalues[i] = dayval.DayResult[daykeys[i]];
                     }
 
@@ -175,53 +182,68 @@ namespace strikeneck
                         dayvalues[4][1],
                         dayvalues[5][1],
                         dayvalues[6][1],
-                        dayvalues[7][1],
-                        dayvalues[8][1],
-                        dayvalues[9][1],
-                        dayvalues[10][1],
-                        dayvalues[11][1],
-                        dayvalues[12][1],
-                        dayvalues[13][1],
-                        dayvalues[14][1],
-                        dayvalues[15][1],
+                       
                        
                         });
                     StatsViewModel.SetPoorPostureTime(new float[] {
-                       
+                        dayvalues[0][0],
+                        dayvalues[1][0],
+                        dayvalues[2][0],
+                        dayvalues[3][0],
+                        dayvalues[4][0],
+                        dayvalues[5][0],
+                        dayvalues[6][0],
+
                     });
                     StatsViewModel.SetAxisLabels(new string[] {
-                        "0時",
-                        "1時",
-                        "2時",
-                        "3時",
-                        "4時",
-                        "5時",
-                        "6時",
-                        "7時",
-                        "8時",
-                        "9時",
-                        "10時",
-                        "11時",
-                        "12時",
-                        "13時",
-                        "14時",
-                        "15時",
-                        "16時",
-                        "17時",
-                        "18時",
-                        "19",
-                        "20時",
-                        "21時",
-                        "22時",
-                        "23時",
+                        "SUN",
+                        "MON",
+                        "TUE",
+                        "WED",
+                        "THU",
+                        "FRI",
+                        "SAT",
+                        
                     });
                     myLabel.Text = "(時間)";
                     break;
                 case 2:
+                    Months_Returnee monthsval = new Months_Returnee();
+                    monthsval.MonthsReturnee();
+                    int currentMonth = MonthUtility.GetCurrentMonth();
+
+                    List<int>[] monthskeys = new List<int>[12];
+                    List<float>[] monthsvalues = new List<float>[12];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        monthskeys[i] = new List<int>() { currentMonth, i };
+                        monthsvalues[i] = monthsval.MonthResult[monthskeys[i]];
+                    }
+
+                    StatsViewModel.SetStartUpTime(new float[] {
+                        monthsvalues[0][1],
+                        monthsvalues[1][1],
+                        monthsvalues[2][1],
+                        monthsvalues[3][1],
+                        
+
+                        });
+                    StatsViewModel.SetPoorPostureTime(new float[] {
+                        monthsvalues[0][0],
+                        monthsvalues[1][0],
+                        monthsvalues[2][0],
+                        monthsvalues[3][0],
+
+
+                    });
+                    StatsViewModel.SetAxisLabels(new string[] {
+                        "第1週",
+                        "第2週",
+                        "第3週",
+                        "第4週",
+
+                    });
                     myLabel.Text = "(時間)";
-                    StatsViewModel.SetStartUpTime(new float[] { 30, 40, 50, 60, 70, 80, 90 });
-                    StatsViewModel.SetPoorPostureTime(new float[] { 40, 50, 6, 70, 80, 90, 100 });
-                    StatsViewModel.SetAxisLabels(new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul" });
                     break;
             }
 
