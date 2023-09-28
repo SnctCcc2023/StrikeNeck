@@ -12,18 +12,18 @@ namespace StrikeNeck.ViewModels
     public class StatsViewModel : INotifyPropertyChanged
     {
         private ISeries[] series;
-        private static int[] startUpTime = { 1, 2, 3, 4, 5, 6, 7 };
-        private static int[] poorPostureTime = { 7, 6, 5, 4, 3, 2, 1 };
+        private static float[] startUpTime = { 1, 2, 3, 4, 5, 6, 7 };
+        private static float[] poorPostureTime = { 7, 6, 5, 4, 3, 2, 1 };
         public StatsViewModel()
         {
             series = new ISeries[]
             {
-        new ColumnSeries<int> {
+        new ColumnSeries<float> {
             Values = startUpTime,
             MaxBarWidth = 60,
             IgnoresBarPosition = true},
 
-        new ColumnSeries<int> {
+        new ColumnSeries<float> {
             Values = poorPostureTime,
             MaxBarWidth = 30,
             IgnoresBarPosition = true}
@@ -62,11 +62,11 @@ namespace StrikeNeck.ViewModels
         }
         // Values ÇïœêîÇ…ë„ì¸Ç∑ÇÈó·
 
-        public static void SetStartUpTime(int[] newValues)
+        public static void SetStartUpTime(float[] newValues)
         {
             startUpTime = newValues;
         }
-        public static void SetPoorPostureTime(int[] newValues)
+        public static void SetPoorPostureTime(float[] newValues)
         {
             poorPostureTime = newValues;
         }
@@ -75,13 +75,13 @@ namespace StrikeNeck.ViewModels
         {
             series = new ISeries[]
             {
-        new ColumnSeries<int> {
+        new ColumnSeries<float> {
             Values = startUpTime,
             Stroke = null,
             MaxBarWidth = 60,
             IgnoresBarPosition = true,
         },
-        new ColumnSeries<int> {
+        new ColumnSeries<float> {
             Values = poorPostureTime,
             Stroke = null,
             MaxBarWidth = 30,
