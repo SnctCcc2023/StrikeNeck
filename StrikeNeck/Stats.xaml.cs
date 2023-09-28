@@ -444,7 +444,7 @@ namespace strikeneck
                     {
                         monthActivateTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ActiveTime;
                         monthForwardLeanTimes[i] = analyticsPerMonth.GetAnalyticsPerWeek(i).ForwardLeanTime;
-                        monthAxis[i] = $"第{i}週";
+                        monthAxis[i] = $"{date.Month}月第{i}週";
                     }
 
                     StatsViewModel.SetStartUpTime(monthActivateTimes);
