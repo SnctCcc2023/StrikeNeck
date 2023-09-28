@@ -1,45 +1,69 @@
-
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using System.Xml.Linq;
-
-
+using StrikeNeck.ViewModels;
+using Day_Return;
+using Hour_Return;
+using Month_Return;
 namespace strikeneck
 {
     public partial class Stats : ContentPage
     {
-        private void DurationPicker_SelectedIndexChanged(object sender, EventArgs e)
+        private StatsViewModel statsViewModel;
+        public StatsViewModel StatsViewModel
         {
-            // Picker で選択されたアイテムを取得
-            var timeSelectedValue = DurationPicker.SelectedItem as string;
-            Label myLabel = this.FindByName<Label>("unit");
-            if (timeSelectedValue == "日間")
+            get { return statsViewModel; }
+            set
             {
-                myLabel.Text = "(分)";
+                statsViewModel = value;
+                BindingContext = statsViewModel;
             }
-            else if (timeSelectedValue == "週間" || timeSelectedValue == "月間")
-            {
-                myLabel.Text = "(時間)";
-            }
-            else
-            {
-                myLabel.Text = "(時間)";
-            }
-           
-
         }
         public Stats()
         {
             InitializeComponent();
             Binding binding = new Binding();
-            
+            StatsViewModel = new StatsViewModel();
         }
-       
+
+
+        private void DurationPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            var selectedIndex = picker.SelectedIndex;
+            Label myLabel = this.FindByName<Label>("unit");
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    StatsViewModel.SetStartUpTime(new int[] { 10, 20, 30, 40, 50, 60, 70 });
+                    StatsViewModel.SetPoorPostureTime(new int[] { 20, 30, 90, 50, 60, 70, 80 });
+                    StatsViewModel.SetAxisLabels(new string[] { "1", "2", "3", "4", "5", "6", "7" });
+                    myLabel.Text = "(分)";
+                    break;
+                case 1:
+                    myLabel.Text = "(時間)";
+                    StatsViewModel.SetStartUpTime(new int[] { 20, 30, 40, 50, 60, 70, 80 });
+                    StatsViewModel.SetPoorPostureTime(new int[] { 30, 40, 50, 60, 70, 10, 90 });
+                    StatsViewModel.SetAxisLabels(new string[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" });
+                    break;
+                case 2:
+                    myLabel.Text = "(時間)";
+                    StatsViewModel.SetStartUpTime(new int[] { 30, 40, 50, 60, 70, 80, 90 });
+                    StatsViewModel.SetPoorPostureTime(new int[] { 40, 50, 6, 70, 80, 90, 100 });
+                    StatsViewModel.SetAxisLabels(new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul" });
+                    break;
+            }
+
+            StatsViewModel.Series = StatsViewModel.Series;
+            StatsViewModel.XAxes = StatsViewModel.XAxes;
+            StatsViewModel.UpdateGraph();
+        }
+
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Settings");
         }
-        
+
 
 
         private async void MakeToast(object sender, EventArgs e)
