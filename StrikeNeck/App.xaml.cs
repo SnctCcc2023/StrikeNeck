@@ -10,6 +10,7 @@ namespace strikeneck;
             InitializeComponent();
 
             MainPage = new AppShell();
+
         }
 
     }

@@ -24,6 +24,7 @@ namespace strikeneck.Init
             var result = await cameraView.StartCameraAsync();
             while (true)
             {
+                
                 await Task.Delay(TimeSpan.FromMilliseconds(10));
                 StartTime = TimeOnly.FromDateTime(DateTime.Now);
 

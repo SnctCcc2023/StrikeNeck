@@ -1,6 +1,7 @@
 ﻿using Camera.MAUI;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 namespace strikeneck
 {
     public static class MauiProgram
@@ -9,7 +10,11 @@ namespace strikeneck
         {
             var builder = MauiApp.CreateBuilder();
 
-            builder.UseMauiApp<App>().UseMauiCameraView().ConfigureFonts(fonts =>
+            builder
+                .UseSkiaSharp(true)
+                .UseMauiApp<App>()
+                .UseMauiCameraView()
+                .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
