@@ -30,7 +30,7 @@
                         SelectedIndexChanged="NotificationIntervalPicker_SelectedIndexChanged">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>1</x:String>
+                            <x:Strin>1</x:Strin>
                             <x:String>5</x:String>
                             <x:String>15</x:String>
                             <x:String>30</x:String>

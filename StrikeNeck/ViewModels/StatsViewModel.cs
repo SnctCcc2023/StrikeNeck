@@ -1,10 +1,11 @@
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
+
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using SkiaSharp.Views.Maui;
-using Microsoft.Maui.Graphics;
+
 
 
 namespace StrikeNeck.ViewModels
@@ -21,11 +22,14 @@ namespace StrikeNeck.ViewModels
         new ColumnSeries<float> {
             Values = startUpTime,
             MaxBarWidth = 60,
+            Fill = new SolidColorPaint(SKColors.Blue),
+
             IgnoresBarPosition = true},
 
         new ColumnSeries<float> {
             Values = poorPostureTime,
             MaxBarWidth = 30,
+            Fill = new SolidColorPaint(SKColors.Red),
             IgnoresBarPosition = true}
             };
             xAxes = new[]
@@ -77,13 +81,14 @@ namespace StrikeNeck.ViewModels
             {
         new ColumnSeries<float> {
             Values = startUpTime,
-            Stroke = null,
+            Fill = new SolidColorPaint(SKColors.Blue),
+            
             MaxBarWidth = 60,
             IgnoresBarPosition = true,
         },
         new ColumnSeries<float> {
             Values = poorPostureTime,
-            Stroke = null,
+            Fill = new SolidColorPaint(SKColors.Red),
             MaxBarWidth = 30,
             IgnoresBarPosition = true,
         }
