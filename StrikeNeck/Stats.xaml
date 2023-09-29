@@ -2,11 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="strikeneck.Stats"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+
              xmlns:vm="clr-namespace:StrikeNeck.ViewModels"
             >
     <ContentPage.BindingContext>
         <vm:StatsViewModel />
     </ContentPage.BindingContext>
+
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             >
+
 
     <ContentPage.Content>
         <Grid>
@@ -47,6 +52,7 @@
                     </Picker.ItemsSource>
                 </Picker>
                 
+
             </StackLayout>
             <Label x:Name="unit"  Grid.Row="1" Text="(分)" FontSize="Medium" Margin="10,0,10,10" VerticalOptions="Start" />
             <!-- コンテンツ部分 -->
@@ -54,6 +60,21 @@
                                 Margin="10,40,10,10"
                                 Series="{Binding Series}"
                                 XAxes="{Binding XAxes}"/>
+
+                 HorizontalOptions="Start"
+                
+                
+                Clicked="ImageButton_Clicked" />
+
+            <cv:CameraView x:Name="cameraView"
+                           WidthRequest="300"
+                           HeightRequest="300"
+                           CamerasLoaded="cameraView_CamerasLoaded"
+                           IsVisible="false" />
+            <Image x:Name="myImage" WidthRequest="200" HeightRequest="200" />
+        </VerticalStackLayout>
+    </ScrollView>
+
 
             <!-- フッター部分 -->
             <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center">

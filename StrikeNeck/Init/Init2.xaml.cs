@@ -2,6 +2,7 @@ namespace strikeneck.Init
 {
     public partial class Init2 : ContentPage
     {
+        int takeCount = 0;
         private TimeOnly StartTime = TimeOnly.FromDateTime(DateTime.Now);
         public Init2()
         {
@@ -27,12 +28,23 @@ namespace strikeneck.Init
                 await Task.Delay(TimeSpan.FromMilliseconds(10));
                 StartTime = TimeOnly.FromDateTime(DateTime.Now);
 
-                if (StartTime.Second % 10 == 0)
+                if (StartTime.Second % 1 == 0)
                 {
-                    myImage.Source = cameraView.GetSnapShot(Camera.MAUI.ImageFormat.PNG);
-                    await Task.Delay(TimeSpan.FromMilliseconds(1000));
+                    StartTime = TimeOnly.FromDateTime(DateTime.Now);
+                    string mainDir = FileSystem.Current.CacheDirectory;
+                    string SubDir = "WrongPic";
+                    string DirPath = mainDir + SubDir;
+                    if (!Directory.Exists(DirPath)) Directory.CreateDirectory(DirPath);
+                    string PicName = "judge";
+                    PicName += takeCount.ToString();
+                    PicName += ".JPEG";
+                    takeCount++;
+                    string filePath = Path.Combine(DirPath, PicName);
+                    await cameraView.SaveSnapShot(Camera.MAUI.ImageFormat.JPEG, filePath);
+                    await Task.Delay(TimeSpan.FromMilliseconds(50));
                     StartTime = TimeOnly.FromDateTime(DateTime.Now);
                 }
+                if (takeCount > 40) break;
             }
         }
 
