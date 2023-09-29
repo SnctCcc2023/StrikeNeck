@@ -66,6 +66,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\FowardLeaningDetector\FowardLeaningDetector.csproj" />
+	</ItemGroup>
+
+	
+
+	<ItemGroup>
 	  <Compile Update="Stats.xaml.cs">
 	    <DependentUpon>Stats.xaml</DependentUpon>
 	  </Compile>
