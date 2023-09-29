@@ -12,6 +12,7 @@
                 <!-- スイッチを右上に配置 -->
                 <Switch x:Name="toggleSwitch"
                         Toggled="ToggleSwitch_Toggled"
+                        IsToggled="true"
                         VerticalOptions="Start" HorizontalOptions="End" 
                         Margin="0,5,-51,0"/>
                 

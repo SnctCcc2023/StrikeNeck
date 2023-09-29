@@ -45,7 +45,8 @@ namespace strikeneck.Imaging
 
 
             //PoseNetの読み込み
-            string modelFilePath = "../../../../../../Imaging/mlModel/posenet.onnx";
+            string filePath = @"C:\Users\harun\Ccc\StrikeNeck_Solved\StrikeNeck\FowardLeaningDetector\models\posenet.onnx";
+            string modelFilePath = filePath;
 
             //画像の読み込み
             using var image = Image.Load<Rgb24>(fileInfo.FullName);

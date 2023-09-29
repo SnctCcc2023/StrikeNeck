@@ -11,6 +11,7 @@ using Camera.MAUI;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using ZXing;
+using strikeneck.Imaging;
 
 
 namespace strikeneck
@@ -240,6 +241,7 @@ namespace strikeneck
             }
             else
             {
+                cameraView_Reloaded();
                 TakePhoto();
             }
         }
@@ -254,7 +256,16 @@ namespace strikeneck
             });
 
         }
+        private void cameraView_Reloaded()
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await cameraView.StopCameraAsync();
+                var result = await cameraView.StartCameraAsync();
 
+            });
+
+        }
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
             moving = true;
@@ -536,7 +547,6 @@ namespace strikeneck
             await Task.Delay(1);
             await Shell.Current.GoToAsync("//Init1");
         }
-
         private async void MakeToast(object sender, EventArgs e)
         {
 
@@ -544,17 +554,10 @@ namespace strikeneck
 
             var snackbarOptions = new SnackbarOptions
             {
-                BackgroundColor = Colors.Red,
-                TextColor = Colors.Green,
-                ActionButtonTextColor = Colors.Yellow,
-                CornerRadius = new CornerRadius(10),
-                Font = Microsoft.Maui.Font.SystemFontOfSize(14),
-                ActionButtonFont = Microsoft.Maui.Font.SystemFontOfSize(14),
-                CharacterSpacing = 0.5
             };
 
-            string text = "テスト通知";
-            string actionButtonText = "設定を開く";
+            string text = "姿勢が悪くなっています！\n" + "もし姿勢が悪くなっていないのにこの通知が出ている場合は以下のボタンから検知感度を調整してください。\n";
+            string actionButtonText = "設定画面を開く";
             Action action = async () => await Shell.Current.GoToAsync("//Settings");
             TimeSpan duration = TimeSpan.FromSeconds(3);
 
@@ -570,20 +573,35 @@ namespace strikeneck
 
         public async void TakePhoto()
         {
+            await cameraView.StopCameraAsync();
+            var result = await cameraView.StartCameraAsync();
+            int interval_cnt = 0;
             while (!moving)
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(10));
                 StartTime = TimeOnly.FromDateTime(DateTime.Now);
-
                 if (StartTime.Second % 60 == 0)
                 {
+                    interval_cnt++;
                     string mainDir = FileSystem.Current.CacheDirectory;
                     string SubDir = "JudgePic";
                     string DirPath = mainDir + SubDir;
                     if (!Directory.Exists(DirPath)) Directory.CreateDirectory(DirPath);
                     string filePath = Path.Combine(DirPath, "judge.jpeg");
-                    File.Delete(Path.Combine(DirPath, "judge.jpeg"));
                     await cameraView.SaveSnapShot(Camera.MAUI.ImageFormat.JPEG, filePath);
+                    ForwardLeanDetector fd = new ForwardLeanDetector();
+                    var detect_path = new FileInfo(filePath);
+                    bool IsLeaned = fd.examin(detect_path);
+                    bool Notification = Preferences.Default.Get("IsNotification", true);
+                    string interval = "1";
+                    // interval = Preferences.Default.Get("A", "1");
+                    int tmp = int.Parse(interval);
+                    if (interval_cnt >=tmp)
+                    {
+                        interval_cnt = 0;
+                        MakeToast();
+                    }
+                    if (interval_cnt > 10000) interval_cnt = 0;
                     await Task.Delay(TimeSpan.FromMilliseconds(1000));
                     StartTime = TimeOnly.FromDateTime(DateTime.Now);
                 }
