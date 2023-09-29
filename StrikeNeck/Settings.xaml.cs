@@ -15,15 +15,17 @@ namespace strikeneck
         }
         private void NotificationIntervalPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Picker ‚Å‘I‘ğ‚³‚ê‚½ƒAƒCƒeƒ€‚ğæ“¾
+            // Picker ï¿½Å‘Iï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
             selectedValue = notificationIntervalPicker.SelectedItem as string;
             
         }
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            double Value = e.NewValue; // ƒXƒ‰ƒCƒ_[‚ÌV‚µ‚¢’l‚ğæ“¾
+            double Value = e.NewValue; // ï¿½Xï¿½ï¿½ï¿½Cï¿½_ï¿½[ï¿½ÌVï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½æ“¾
                                        
         }
+        
+     
 
         private async void ToStats(Object sender, EventArgs e)
 		{

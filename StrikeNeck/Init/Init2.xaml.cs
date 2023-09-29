@@ -27,6 +27,7 @@ namespace strikeneck.Init
             string DirPath = "";
             while (true)
             {
+                
                 await Task.Delay(TimeSpan.FromMilliseconds(10));
                 StartTime = TimeOnly.FromDateTime(DateTime.Now);
                 if (StartTime.Second % 1 == 0)
