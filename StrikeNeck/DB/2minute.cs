@@ -1,22 +1,32 @@
-﻿namespace minute;
+﻿using System;
+using System.Data.SQLite;
+using System.IO;
 
-using System;
-using Microsoft.Data.SqlClient;
-
-internal class Minute
+namespace minute2
 {
-    private string connectionString = @"Data Source=(localdb)\ProjectModels;Initial Catalog=minutes;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-    public void MinuteInsert(bool result, float tp)
+    public class Minute
     {
-        var insertQuery = @"INSERT INTO minutes(Id, results)
-                              VALUES (@id, @results)";
-        using var connection = new SqlConnection(connectionString);
-        using var command = new SqlCommand(insertQuery, connection);
-        connection.Open();
-
-        command.Parameters.AddWithValue("@id", tp);
-        command.Parameters.AddWithValue("@results", result);
-
-        command.ExecuteNonQuery();
+        private string connectionString = @"Data Source=minutes.db;Version=3;";
+        public void InitializeDatabase()
+        {
+            if (!File.Exists("minutes.db"))
+            {
+                using var connection = new SQLiteConnection(connectionString);
+                connection.Open();
+                var createTableQuery = @"CREATE TABLE IF NOT EXISTS minutes(Id INTEGER, results REAL)";
+                using var command = new SQLiteCommand(createTableQuery, connection);
+                command.ExecuteNonQuery();
+            }
+        }
+        public void MinuteInsert(bool result, float tp)
+        {
+            var insertQuery = @"INSERT INTO minutes(Id, results) VALUES (@id, @results)";
+            using var connection = new SQLiteConnection(connectionString);
+            connection.Open();
+            using var command = new SQLiteCommand(insertQuery, connection);
+            command.Parameters.AddWithValue("@id", tp);
+            command.Parameters.AddWithValue("@results", result);
+            command.ExecuteNonQuery();
+        }
     }
 }
