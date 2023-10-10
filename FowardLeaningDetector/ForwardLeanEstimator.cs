@@ -1,5 +1,5 @@
 ﻿using Microsoft.ML;
-using strikeneck.AppSetting;
+//using strikeneck.AppSetting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace strikeneck.Imaging
 {
     internal class ForwardLeanEstimator
     {
-        private static string modelPath = "../../../../../../Imaging/mlModel/model.zip";
+        private static string modelPath =@"C:\Users\harun\Ccc\StrikeNeck_Solved\StrikeNeck\FowardLeaningDetector\models\model.zip";
 
         internal static bool estimate(Dictionary<KeyPointName, KeyPoint> keyPoints)
         {
@@ -32,9 +32,9 @@ namespace strikeneck.Imaging
             var trueScore = output.Score[0];
             var falseScore = output.Score[1];
 
-            var bias = SettingAccessor.Load().detectionSensitivity.sensitivity;
+          //  var bias = SettingAccessor.Load().detectionSensitivity.sensitivity;
 
-            var isForwardLean = ( (trueScore + bias ) > falseScore );
+            var isForwardLean = ( (trueScore /*+ bias*/ ) > falseScore );
 
             return isForwardLean;
         }

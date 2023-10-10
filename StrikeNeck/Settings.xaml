@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="strikeneck.Settings">
+    <ScrollView>
+        <VerticalStackLayout
+            VerticalOptions="StartAndExpand">
+            <Grid>
+                <!-- テキストを左上に配置 -->
+                <Label Text="通知" VerticalOptions="Start" FontSize="Medium" HorizontalOptions="Start" Margin="10,5,0,0" />
+
+                <!-- スイッチを右上に配置 -->
+                <Switch x:Name="toggleSwitch"
+                        Toggled="ToggleSwitch_Toggled"
+                        IsToggled="true"
+                        VerticalOptions="Start" HorizontalOptions="End" 
+                        Margin="0,5,-51,0"/>
+                
+
+                <!-- 横一直線を引く -->
+            </Grid>
+
+           
+
+            
+
+            <Grid>
+                <!-- テキストを左上に配置 -->
+                <Label Text="初期設定" VerticalOptions="Start" FontSize="Medium" HorizontalOptions="Start" Margin="10,15,0,0" />
+
+                <!-- スイッチを右上に配置 -->
+                <Button
+                Text="初期設定を始める"
+                HorizontalOptions="EndAndExpand"
+                Margin="10,15,30,10"
+                Clicked="ToInit1" />
+            </Grid>
+            
+            
+            
+            <!-- ボタンを隣に配置する HorizontalStackLayout -->
+            <HorizontalStackLayout HorizontalOptions="EndAndExpand">
+                <!-- キャンセルボタン (左に少しずらす) -->
+                <Button Text="キャンセル" HorizontalOptions="End" Clicked="ToStats" Margin="0,90,50,0"/>
+
+                <!-- 保存して完了ボタン -->
+                <Button Text="保存して完了" HorizontalOptions="Start" Clicked="CompleteButton_Clicked" Margin="0,90,30,0"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
