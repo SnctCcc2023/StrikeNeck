@@ -5,7 +5,9 @@ VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrikeNeck", "strikeneck\StrikeNeck.csproj", "{76AA4C5F-4DC6-40D5-8DBE-C43E8FFFA426}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FowardLeaningDetector", "FowardLeaningDetector\FowardLeaningDetector.csproj", "{CDBD016B-C8C8-4094-AEC3-000D625E9DB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FowardLeaningDetector", "FowardLeaningDetector\FowardLeaningDetector.csproj", "{CDBD016B-C8C8-4094-AEC3-000D625E9DB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseDataControl", "..\..\..\..\ccc\restartHere\UseDataControl\UseDataControl.csproj", "{EDB4805E-29A6-47EA-B30F-FF4D75930986}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{CDBD016B-C8C8-4094-AEC3-000D625E9DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDBD016B-C8C8-4094-AEC3-000D625E9DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDBD016B-C8C8-4094-AEC3-000D625E9DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB4805E-29A6-47EA-B30F-FF4D75930986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB4805E-29A6-47EA-B30F-FF4D75930986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB4805E-29A6-47EA-B30F-FF4D75930986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB4805E-29A6-47EA-B30F-FF4D75930986}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
