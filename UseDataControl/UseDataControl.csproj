@@ -36,6 +36,7 @@
     <Reference Include="Microsoft.Data.Sqlite, Version=7.0.11.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\DataControl\packages\Microsoft.Data.Sqlite.Core.7.0.11\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="SQLitePCLRaw.core, Version=2.1.4.1835, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
       <HintPath>..\DataControl\packages\SQLitePCLRaw.core.2.1.4\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
     </Reference>
@@ -63,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataControler.cs" />
+    <Compile Include="DataControl\SQLiteCommandExecutor.cs" />
+    <Compile Include="DataControl\CreateTable.cs" />
     <Compile Include="DataControl\DataGetter.cs" />
     <Compile Include="DataControl\DataSaver.cs" />
     <Compile Include="DataControlerTest.cs" />

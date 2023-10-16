@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Data.Sqlite;
+﻿using UseDataControl.DataControl;
 
 namespace DataManagement
 {
@@ -10,14 +9,10 @@ namespace DataManagement
         {
             if (FirstTimeChecker)
             {
-                CreateTable(); //初回のみテーブルを作成する
+                TableCreater tableCreatorInstance = new TableCreater();
+                tableCreatorInstance.CreateTable(); //初回のみテーブルを作成する
                 FirstTimeChecker = false;
             }
-        }
-        
-        private void CreateTable()
-        {
-
         }
     }
 }
