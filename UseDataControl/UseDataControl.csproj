@@ -70,6 +70,7 @@
     <Compile Include="DataControl\DataSaver.cs" />
     <Compile Include="DataControlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultDataSave\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
