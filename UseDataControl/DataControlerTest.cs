@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using strikeneck.DB_Result;
 
 namespace UseDataControl
@@ -11,7 +8,9 @@ namespace UseDataControl
     {
         static void Main(string[] args)
         {
+            SQLitePCL.Batteries.Init();
             DataControler Test = new DataControler();
+            Test.DataSave(true);
             int result = Test.DataControl();
             Console.WriteLine(result);
         }

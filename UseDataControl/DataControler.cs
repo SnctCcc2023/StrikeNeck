@@ -10,12 +10,12 @@ namespace strikeneck.DB_Result
 {
     public class DataControler
     {
-        DataSaver test1 = new DataSaver();
+        DataSavesAlgorithm test1 = new DataSavesAlgorithm();
         DataGetter test2 = new DataGetter();
 
         public void DataSave(bool result)
         {
-            test1.DataSave(true);
+            test1.ConditionalDataSave(result);
         }
 
         public int DataControl()

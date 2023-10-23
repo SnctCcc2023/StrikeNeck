@@ -3,7 +3,7 @@ using UseDataControl.DataControl;
 
 namespace DataManagement
 {
-    public class DataSaver
+    public class DataSavesAlgorithm
     {
         private DateTime now;
         private int dt_yyyyMMdd;
@@ -11,7 +11,7 @@ namespace DataManagement
         private int dt_yyyyMMddHH;
         private int now_yyyyMMddHH;
         private bool FirstTimeChecker = true;
-        public void DataSave(bool result) //データのセーブの際に呼び出す。結果をbool型で渡す
+        public void ConditionalDataSave(bool result) //データのセーブの際に呼び出す。結果をbool型で渡す
         {
             now = DateTime.Now;
             now_yyyyMMdd = int.Parse(now.ToString("yyyyMMdd"));
@@ -27,9 +27,15 @@ namespace DataManagement
             else if (now_yyyyMMdd > dt_yyyyMMdd)
             {
 
+                dt_yyyyMMdd = int.Parse(now.ToString("yyyyMMdd"));
                 dt_yyyyMMddHH = int.Parse(now.ToString("yyyyMMddHH"));
             }
             else if(now_yyyyMMddHH > dt_yyyyMMddHH)
+            {
+
+                dt_yyyyMMddHH = int.Parse(now.ToString("yyyyMMddHH"));
+            }
+            else
             {
 
             }
