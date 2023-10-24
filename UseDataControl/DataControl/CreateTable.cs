@@ -8,7 +8,7 @@ namespace UseDataControl.DataControl
 {
     class TableCreater
     {
-        public void CreateTable()
+        public void CreateHourlyTable()
         {
             StringBuilder queryHours = new StringBuilder();
             queryHours.Clear();
@@ -20,7 +20,11 @@ namespace UseDataControl.DataControl
 
             SQLiteCommandExecutor HourlyDataTableCreator = new SQLiteCommandExecutor();
             HourlyDataTableCreator.RunNonQueryCommand(queryHours.ToString());
+        }
 
+
+        public void CreateDailyTable()
+        {
             StringBuilder queryDaily = new StringBuilder();
             queryDaily.Clear();
             queryDaily.Append("CREATE TABLE IF NOT EXISTS DailyData(");
@@ -32,7 +36,11 @@ namespace UseDataControl.DataControl
 
             SQLiteCommandExecutor DailyDataTableCreator = new SQLiteCommandExecutor();
             DailyDataTableCreator.RunNonQueryCommand(queryDaily.ToString());
+        }
 
+
+        public void CreateYearlyTable()
+        {
             StringBuilder queryYearly = new StringBuilder();
             queryYearly.Clear();
             queryYearly.Append("CREATE TABLE IF NOT EXISTS HourlyData(");

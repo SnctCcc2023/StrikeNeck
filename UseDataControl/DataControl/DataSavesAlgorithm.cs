@@ -23,7 +23,9 @@ namespace DataManagement
             if (FirstTimeChecker)
             {
                 TableCreater tableCreatorInstance = new TableCreater();
-                tableCreatorInstance.CreateTable(); //初回のみテーブルを作成する
+                tableCreatorInstance.CreateHourlyTable(); 
+                tableCreatorInstance.CreateDailyTable();
+                tableCreatorInstance.CreateYearlyTable();
                 FirstTimeChecker = false;
                 LastTime_yyyyMMdd = int.Parse(now.ToString("yyyyMMdd"));
                 LastTime_yyyyMMddHH = int.Parse(now.ToString("yyyyMMddHH"));
@@ -31,12 +33,16 @@ namespace DataManagement
             else if (now_yyyyMMdd > LastTime_yyyyMMdd)
             {
 
+                ResetMinuteResultToHourlyData();
+                SaveMinuteResultToHourlyData(result);
                 LastTime_yyyyMMdd = int.Parse(now.ToString("yyyyMMdd"));
                 LastTime_yyyyMMddHH = int.Parse(now.ToString("yyyyMMddHH"));
             }
             else if (now_yyyyMMddHH > LastTime_yyyyMMddHH)
             {
 
+                ResetMinuteResultToHourlyData();
+                SaveMinuteResultToHourlyData(result);
                 LastTime_yyyyMMddHH = int.Parse(now.ToString("yyyyMMddHH"));
             }
             else
@@ -54,6 +60,19 @@ namespace DataManagement
             // クエリー実行
             SQLiteCommandExecutor SaveMinuteResulter = new SQLiteCommandExecutor();
             SaveMinuteResulter.RunNonQueryCommand(query.ToString());
+        }
+
+
+        private void ResetMinuteResultToHourlyData()
+        {
+            var query = "DROP TABLE HourlyData";
+            SQLiteCommandExecutor ResetMinuteResulter = new SQLiteCommandExecutor();
+            ResetMinuteResulter.RunNonQueryCommand(query.ToString());
+            //テーブルの削除
+
+            TableCreater MinuteResultTableCreator = new TableCreater();
+            MinuteResultTableCreator.CreateHourlyTable();
+            //テーブルの作成
         }
     }
 }
