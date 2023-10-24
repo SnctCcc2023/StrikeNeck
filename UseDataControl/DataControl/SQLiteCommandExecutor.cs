@@ -30,5 +30,7 @@ namespace UseDataControl.DataControl
                 MessageBox.Show(ex.Message);
             }
         }
+
+        //　ここにINSERTや結果を返すコマンドのコードを定義をしていくこと
     }
 }
