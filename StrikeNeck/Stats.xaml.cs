@@ -1,15 +1,11 @@
 
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
 using LiveCharts.Wpf;
 using StrikeNeck.ViewModels;
-
 using System;
-
-
 using Camera.MAUI;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm;
 using ZXing;
 using strikeneck.Imaging;
 
@@ -107,7 +103,7 @@ namespace strikeneck
                     var analyticsPerDay = DataAccessor.GetAnalyticsPerDay(date);
                     float[] dayActivateTimes = new float[24];
                     float[] dayForwardLeanTimes = new float[24];
-                    for(int i = 0; i < 24; i++)
+                    for (int i = 0; i < 24; i++)
                     {
                         dayActivateTimes[i] = analyticsPerDay[i].ActiveTime;
                         dayForwardLeanTimes[i] = analyticsPerDay[i].ForwardLeanTime;
@@ -145,7 +141,7 @@ namespace strikeneck
                     myLabel.Text = "(分)";
                     break;
                 case 1:
-                    
+
                     var analyticsPerWeek = DataAccessor.GetAnalyticsPerWeek(date);
                     int sun = (int)DayOfWeek.SUN;
                     int mon = (int)DayOfWeek.MON;
@@ -225,7 +221,7 @@ namespace strikeneck
             StatsViewModel.Series = StatsViewModel.Series;
             StatsViewModel.XAxes = StatsViewModel.XAxes;
             StatsViewModel.UpdateGraph();
-
+        }
         private TimeOnly StartTime = TimeOnly.FromDateTime(DateTime.Now);
         bool moving;
         // private TimeOnly StartTime = TimeOnly.FromDateTime(DateTime.Now);
@@ -279,7 +275,7 @@ namespace strikeneck
             var picker = (Picker)sender;
             var selectedIndex = picker.SelectedIndex;
             Label myLabel = this.FindByName<Label>("unit");
-            
+
             switch (selectedIndex)
             {
                 case 0:
@@ -547,7 +543,7 @@ namespace strikeneck
             await Task.Delay(1);
             await Shell.Current.GoToAsync("//Init1");
         }
-        private async void MakeToast(object sender, EventArgs e)
+        private async void MakeToast()
         {
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -556,7 +552,7 @@ namespace strikeneck
             {
             };
 
-            string text = "姿勢が悪くなっています！\n" + "もし姿勢が悪くなっていないのにこの通知が出ている場合は以下のボタンから検知感度を調整してください。\n";
+            string text = "姿勢が悪くなっています！\n" + "もし姿勢が悪くなっていないのにこの通知が出ている場合は以下のボタンから初期設定を再び行ってください。\n";
             string actionButtonText = "設定画面を開く";
             Action action = async () => await Shell.Current.GoToAsync("//Settings");
             TimeSpan duration = TimeSpan.FromSeconds(3);
@@ -571,41 +567,6 @@ namespace strikeneck
         private void Button_Clicked(object sender, EventArgs e)
         {
 
-        public async void TakePhoto()
-        {
-            await cameraView.StopCameraAsync();
-            var result = await cameraView.StartCameraAsync();
-            int interval_cnt = 0;
-            while (!moving)
-            {
-                await Task.Delay(TimeSpan.FromMilliseconds(10));
-                StartTime = TimeOnly.FromDateTime(DateTime.Now);
-                if (StartTime.Second % 60 == 0)
-                {
-                    interval_cnt++;
-                    string mainDir = FileSystem.Current.CacheDirectory;
-                    string SubDir = "JudgePic";
-                    string DirPath = mainDir + SubDir;
-                    if (!Directory.Exists(DirPath)) Directory.CreateDirectory(DirPath);
-                    string filePath = Path.Combine(DirPath, "judge.jpeg");
-                    await cameraView.SaveSnapShot(Camera.MAUI.ImageFormat.JPEG, filePath);
-                    ForwardLeanDetector fd = new ForwardLeanDetector();
-                    var detect_path = new FileInfo(filePath);
-                    bool IsLeaned = fd.examin(detect_path);
-                    bool Notification = Preferences.Default.Get("IsNotification", true);
-                    string interval = "1";
-                    // interval = Preferences.Default.Get("A", "1");
-                    int tmp = int.Parse(interval);
-                    if (interval_cnt >=tmp)
-                    {
-                        interval_cnt = 0;
-                        MakeToast();
-                    }
-                    if (interval_cnt > 10000) interval_cnt = 0;
-                    await Task.Delay(TimeSpan.FromMilliseconds(1000));
-                    StartTime = TimeOnly.FromDateTime(DateTime.Now);
-                }
-            }
         }
     }
 }

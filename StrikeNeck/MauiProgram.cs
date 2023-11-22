@@ -1,5 +1,6 @@
 ﻿using Camera.MAUI;
 using CommunityToolkit.Maui;
+using CommunityToolkit.Mvvm;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 namespace strikeneck
@@ -13,6 +14,7 @@ namespace strikeneck
             builder
                 .UseSkiaSharp(true)
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .UseMauiCameraView()
                 .ConfigureFonts(fonts =>
             {

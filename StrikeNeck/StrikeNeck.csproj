@@ -57,31 +57,23 @@
 		<PackageReference Include="Camera.MAUI" Version="1.4.4" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
 
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 
 		<PackageReference Include="SkiaSharp" Version="2.88.6" />
 		<PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.6" />
+		<PackageReference Include="SkiaSharp.Views.Forms.WPF" Version="2.88.6" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
 
 		<PackageReference Include="Microsoft.ML" Version="2.0.1" />
 		<PackageReference Include="Microsoft.ML.FastTree" Version="2.0.1" />
 		<PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.15.1" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
-		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
 
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="SkiaSharp" Version="2.88.5" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.8.0" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\FowardLeaningDetector\FowardLeaningDetector.csproj" />
-	</ItemGroup>
 
 	
 
@@ -108,5 +100,4 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
-
 </Project>
