@@ -1,21 +1,22 @@
 ﻿using System;
 using Microsoft.Data.Sqlite;
+using System.Configuration;
 
 namespace StrikeNeckDB.DataControl
 {
-    internal class DBCreator
+    public class DBCreator
     {
-        void MinuteResultSaveDBCreator()
+        public void MinuteResultSaveDBCreator()
         {
 
         }
 
-        void HourResultSaveDBCreator()
+        public void HourResultSaveDBCreator()
         {
 
         }
 
-        void DayResultSaveDBCreator()
+        public void DayResultSaveDBCreator()
         {
 
         }

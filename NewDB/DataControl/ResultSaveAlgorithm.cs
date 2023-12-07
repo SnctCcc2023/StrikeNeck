@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace StrikeNeckDB.DataControl
 {
@@ -14,18 +15,18 @@ namespace StrikeNeckDB.DataControl
         public void ResultSave()
         {
             DateTime now = DateTime.Now;
-            if ()
-            {
-                FunctionChooser = 1;
-            }
-            else if ()
-            {
-                FunctionChooser = 2;
-            }
-            else
-            {
-                FunctionChooser = 3;
-            }
+            //if ()
+            //{
+            //    FunctionChooser = 1;
+            //}
+            //else if ()
+            //{
+            //    FunctionChooser = 2;
+            //}
+            //else
+            //{
+            //    FunctionChooser = 3;
+            //}
 
             if (FunctionChooser == 1)
             {
